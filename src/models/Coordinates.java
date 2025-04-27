@@ -3,25 +3,32 @@ package models;
 import utility.Validatable;
 
 public class Coordinates implements Validatable {
-    private Long x; //Значение поля должно быть больше -167, Поле не может быть null
-    private float y;
+    private long x; //Значение поля должно быть больше -167, Поле не может быть null
+    private Float y;
 
-    public Long getX() {
+    public long getX() {
         return x;
     }
 
-    public float getY() {
+    public Float getY() {
         return y;
     }
 
-    public void setX(Long x) {
-        if (x == null) throw new IllegalArgumentException("X can't be null");
+    public void setX(long x) {
         if (x <= -167) throw new IllegalArgumentException("X must be > -167");
         this.x = x;
     }
 
-    public void setY(float y) {
+    public void setY(Float y) {
         this.y = y;
+    }
+
+    public static boolean validateX(Long x) {
+        return x != null && x > -167.0;
+    }
+
+    public boolean validate() {
+        return validateX(x);
     }
 
     @Override
@@ -29,21 +36,16 @@ public class Coordinates implements Validatable {
         return "(" + x + "; " + y + ")";
     }
 
-    public boolean validate() {
-        if (x <= -167) return false;  // x always not null
-        return true;
-    }
-
     public static class Builder {
-        private Long x;
-        private float y;
+        private long x;
+        private Float y;
 
-        public Builder x(Long x) {
+        public Builder x(long x) {
             this.x = x;
             return this;
         }
 
-        public Builder y(float y) {
+        public Builder y(Float y) {
             this.y = y;
             return this;
         }

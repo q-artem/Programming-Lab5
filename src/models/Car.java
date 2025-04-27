@@ -5,14 +5,17 @@ import utility.Validatable;
 public class Car implements Validatable {
     private String name; //Поле не может быть null
 
-    @Override
-    public String toString() {
-        return name;
+    public static boolean validateName(String name) {
+        return name != null && !name.isEmpty();
     }
 
     public boolean validate() {
-        if (name == null) return false;
-        return true;
+        return validateName(name);
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 
     public static class Builder {

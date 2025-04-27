@@ -6,18 +6,19 @@ import utility.Validatable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+// Тип данных полей не соответствует комментариям. Тип данных был изменён.
 public class HumanBeing extends Element implements Validatable {
     private final Integer id; //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой
     private Coordinates coordinates; //Поле не может быть null
-    private final java.time.LocalDate creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
-    private boolean realHero;
-    private boolean hasToothpick;
-    private Float impactSpeed; //Поле не может быть null
+    private final LocalDate creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
+    private Boolean realHero;
+    private Boolean hasToothpick;
+    private float impactSpeed; //Поле не может быть null
     private String soundtrackName; //Поле не может быть null
-    private double minutesOfWaiting;
+    private Double minutesOfWaiting;
     private WeaponType weaponType; //Поле не может быть null
-    private Car car; //Поле может быть null
+    private Car car; //Поле МОЖЕТ быть null
 
     public HumanBeing() {
         this.id = IdGenerator.assigntHumanBeingId();
@@ -33,16 +34,48 @@ public class HumanBeing extends Element implements Validatable {
         return car;
     }
 
+    public static boolean validateId(Integer id) {
+        return id > 0;  // id always not null
+    }
+
+    public static boolean validateName(String name) {
+        return name != null && !name.isEmpty();
+    }
+
+    public static boolean validateCoordinates(Coordinates coordinates) {
+        return coordinates != null && coordinates.validate();
+    }
+
+    public static boolean validateCreationDate(java.time.LocalDate creationDate) {
+        return creationDate != null;
+    }
+
+    public static boolean validateImpactSpeed(Float impactSpeed) {
+        return impactSpeed != null;
+    }
+
+    public static boolean validateSoundtrackName(String soundtrackName) {
+        return soundtrackName != null;
+    }
+
+    public static boolean validateWeaponType(WeaponType weaponType) {
+        return weaponType != null;
+    }
+
+    public static boolean validateCar(Car car) {
+        return car.validate();
+    }
+
+
     public boolean validate() {
-        if (id <= 0) return false;  // id always not null
-        if (name == null || name.isEmpty()) return false;
-        if (coordinates == null || !coordinates.validate()) return false;
-        if (creationDate == null) return false;
-        if (impactSpeed == null) return false;
-        if (soundtrackName == null) return false;
-        if (weaponType == null) return false;
-        if (!car.validate()) return false;
-        return true;
+        return HumanBeing.validateId(id) &&
+                validateName(name) &&
+                validateCoordinates(coordinates) &&
+                validateCreationDate(creationDate) &&
+                // impactSpeed never been null
+                validateSoundtrackName(soundtrackName) &&
+                validateWeaponType(weaponType) &&
+                validateCar(car);
     }
 
     @Override
@@ -63,17 +96,17 @@ public class HumanBeing extends Element implements Validatable {
 
     @Override
     public int compareTo(Element element) {
-        return (Integer)(this.id - element.getId());
+        return this.id - element.getId();
     }
 
     public static class Builder {
         private String name = null;
         private Coordinates coordinates = new Coordinates();
-        boolean realHero = false;
-        boolean hasToothpick = false;
-        private Float impactSpeed = 1f;
+        private Boolean realHero = false;
+        private Boolean hasToothpick = false;
+        private float impactSpeed = 1f;
         private String soundtrackName = "default_track";
-        private double minutesOfWaiting = 1f;
+        private Double minutesOfWaiting = 1.0;
         private WeaponType weaponType = null;
         private Car car = new Car();
 
