@@ -25,9 +25,50 @@ public class HumanBeing extends Element implements Validatable {
         this.creationDate = LocalDate.now();
     }
 
+    public HumanBeing(Integer id, LocalDate date) {
+        this.id = id;
+        this.creationDate = date;
+    }
+
     @Override
     public Integer getId() {
         return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Coordinates getCoordinates() {
+        return coordinates;
+    }
+
+    public LocalDate getCreationDate() {
+        return creationDate;
+    }
+
+    public Boolean getRealHero() {
+        return realHero;
+    }
+
+    public Boolean getHasToothpick() {
+        return hasToothpick;
+    }
+
+    public float getImpactSpeed() {
+        return impactSpeed;
+    }
+
+    public String getSoundtrackName() {
+        return soundtrackName;
+    }
+
+    public Double getMinutesOfWaiting() {
+        return minutesOfWaiting;
+    }
+
+    public WeaponType getWeaponType() {
+        return weaponType;
     }
 
     public Car getCar() {
@@ -100,15 +141,29 @@ public class HumanBeing extends Element implements Validatable {
     }
 
     public static class Builder {
+        private boolean loadedFromFile = false;
+        private Integer id = null;
+        private LocalDate date = null;
+
         private String name = null;
         private Coordinates coordinates = new Coordinates();
-        private Boolean realHero = false;
-        private Boolean hasToothpick = false;
+        private Boolean realHero = null;
+        private Boolean hasToothpick = null;
         private float impactSpeed = 1f;
-        private String soundtrackName = "default_track";
-        private Double minutesOfWaiting = 1.0;
+        private String soundtrackName = null;
+        private Double minutesOfWaiting = null;
         private WeaponType weaponType = null;
         private Car car = new Car();
+
+        public Builder() {
+
+        }
+
+        public Builder(Integer id, LocalDate date) {
+            loadedFromFile = true;
+            this.id = id;
+            this.date = date;
+        }
 
         public Builder name(String name) {
             this.name = name;
@@ -120,18 +175,17 @@ public class HumanBeing extends Element implements Validatable {
             return this;
         }
 
-        public Builder realHero(boolean realHero) {
+        public Builder realHero(Boolean realHero) {
             this.realHero = realHero;
             return this;
         }
 
-        public Builder hasToothpick(boolean hasToothpick) {
+        public Builder hasToothpick(Boolean hasToothpick) {
             this.hasToothpick = hasToothpick;
             return this;
         }
 
-
-        public Builder impactSpeed(Float impactSpeed) {
+        public Builder impactSpeed(float impactSpeed) {
             this.impactSpeed = impactSpeed;
             return this;
         }
@@ -141,7 +195,7 @@ public class HumanBeing extends Element implements Validatable {
             return this;
         }
 
-        public Builder minutesOfWaiting(double minutesOfWaiting) {
+        public Builder minutesOfWaiting(Double minutesOfWaiting) {
             this.minutesOfWaiting = minutesOfWaiting;
             return this;
         }
@@ -157,7 +211,12 @@ public class HumanBeing extends Element implements Validatable {
         }
 
         public HumanBeing build() {
-            HumanBeing humanBeing = new HumanBeing();
+            HumanBeing humanBeing;
+            if (loadedFromFile) {
+                humanBeing = new HumanBeing(id, date);
+            } else {
+                humanBeing = new HumanBeing();
+            }
             humanBeing.name = this.name;
             humanBeing.coordinates = this.coordinates;
             humanBeing.realHero = this.realHero;

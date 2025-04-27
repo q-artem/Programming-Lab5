@@ -1,7 +1,8 @@
 import models.Car;
 import models.Coordinates;
 import models.HumanBeing;
-import models.creators.HumanBeingCreator;
+import managers.DumpManager;
+import utility.console.StandartConsole;
 
 import java.util.TreeMap;
 
@@ -22,10 +23,13 @@ public class Main {
 
         for (var e : humanBeings.values()) System.out.println(e);
 
-        HumanBeing human2 = HumanBeingCreator.createHumanBeing("1111");
-        humanBeings.put(human2.getId(), human2);
-
-        for (var e : humanBeings.values()) System.out.println(e);
-
+//        HumanBeing human2 = HumanBeingCreator.createHumanBeing("1111");
+//        humanBeings.put(human2.getId(), human2);
+//
+//        for (var e : humanBeings.values()) System.out.println(e);
+        DumpManager dumpManager = new DumpManager("test.xml", new StandartConsole());
+        dumpManager.writeCollection(humanBeings);
+        System.out.println(dumpManager.readCollection());
     }
+
 }
