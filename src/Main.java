@@ -13,10 +13,16 @@ public class Main {
 
         HumanBeing.Builder builder = new HumanBeing.Builder();
         builder.name("human");
-        builder.coordinates(new Coordinates.Builder().x(0L).y(1f).build());
+        builder.coordinates(new Coordinates.Builder().x(0L).y(3F).build());
+        builder.soundtrackName("soundtrack");
         builder.weaponType(HAMMER);
         builder.car(new Car.Builder().name("car").build());
         HumanBeing element = builder.build();
+
+        if (!element.validate()) {
+            System.out.println("Ошибка валидации объекта HumanBeing");
+            return;
+        }
 
         TreeMap<Integer, HumanBeing> humanBeings = new TreeMap<>();
         humanBeings.put(element.getId(), element);
@@ -29,7 +35,9 @@ public class Main {
 //        for (var e : humanBeings.values()) System.out.println(e);
         DumpManager dumpManager = new DumpManager("test.xml", new StandartConsole());
         dumpManager.writeCollection(humanBeings);
-        System.out.println(dumpManager.readCollection());
+        TreeMap<Integer, HumanBeing> readHumanBeings = dumpManager.readCollection();
+
+        for (var e : readHumanBeings.values()) System.out.println(e);
     }
 
 }

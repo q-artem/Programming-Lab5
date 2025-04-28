@@ -4,12 +4,19 @@ import models.Car;
 import models.Coordinates;
 import models.HumanBeing;
 import models.WeaponType;
-import org.w3c.dom.*;
+import org.dom4j.DocumentException;
+import org.dom4j.io.SAXReader;
 import utility.console.StandartConsole;
 
 import java.io.*;
 import java.time.LocalDate;
 import java.util.*;
+
+import org.dom4j.Document;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
+import org.dom4j.io.OutputFormat;
+import org.dom4j.io.XMLWriter;
 
 public class DumpManager {
     private final String fileName;
@@ -26,45 +33,40 @@ public class DumpManager {
      * @param collection TreeMap для сохранения
      */
     public void writeCollection(TreeMap<Integer, HumanBeing> collection) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
-            writer.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
-            writer.write("<humanBeings>\n");
+        try {
+            Document document = DocumentHelper.createDocument();
+            Element rootElement = document.addElement("humanBeings");
 
             for (Map.Entry<Integer, HumanBeing> entry : collection.entrySet()) {
                 HumanBeing humanBeing = entry.getValue();
-                writer.write(String.format(
-                        "  <humanBeing id=\"%d\">\n" +
-                                "    <name>%s</name>\n" +
-                                "    <coordinates>\n" +
-                                "      <x>%d</x>\n" +
-                                "      <y>%f</y>\n" +
-                                "    </coordinates>\n" +
-                                "    <creationDate>%s</creationDate>\n" +
-                                "    <realHero>%b</realHero>\n" +
-                                "    <hasToothpick>%b</hasToothpick>\n" +
-                                "    <impactSpeed>%f</impactSpeed>\n" +
-                                "    <soundtrackName>%s</soundtrackName>\n" +
-                                "    <minutesOfWaiting>%s</minutesOfWaiting>\n" +
-                                "    <weaponType>%s</weaponType>\n" +
-                                "    <car>%s</car>\n" +
-                                "  </humanBeing>\n",
-                        entry.getKey(),
-                        escapeXml(humanBeing.getName()),
-                        humanBeing.getCoordinates().getX(),
-                        humanBeing.getCoordinates().getY(),
-                        humanBeing.getCreationDate(),
-                        humanBeing.getRealHero(),
-                        humanBeing.getHasToothpick(),
-                        humanBeing.getImpactSpeed(),
-                        escapeXml(humanBeing.getSoundtrackName()),
-                        humanBeing.getMinutesOfWaiting() != null ? humanBeing.getMinutesOfWaiting().toString() : "null",
-                        humanBeing.getWeaponType().name(),
-                        humanBeing.getCar() != null ? escapeXml(humanBeing.getCar().toString()) : "null"
-                ));
+                Element humanElement = rootElement.addElement("humanBeing").addAttribute("id", String.valueOf(entry.getKey()));
+
+                humanElement.addElement("name").setText(humanBeing.getName());
+
+                Element coordinates = humanElement.addElement("coordinates");
+                coordinates.addElement("x").setText(String.valueOf(humanBeing.getCoordinates().getX()));
+                coordinates.addElement("y").setText(humanBeing.getCoordinates().getY() != null ? String.valueOf(humanBeing.getCoordinates().getY()) : "");
+
+                humanElement.addElement("creationDate").setText(humanBeing.getCreationDate().toString());
+                humanElement.addElement("realHero").setText(humanBeing.getRealHero() != null ? String.valueOf(humanBeing.getRealHero()) : "");
+                humanElement.addElement("hasToothpick").setText(humanBeing.getHasToothpick() != null ? String.valueOf(humanBeing.getHasToothpick()) : "");
+                humanElement.addElement("impactSpeed").setText(String.valueOf(humanBeing.getImpactSpeed()));
+                humanElement.addElement("soundtrackName").setText(String.valueOf(humanBeing.getSoundtrackName()));
+                humanElement.addElement("minutesOfWaiting").setText(humanBeing.getMinutesOfWaiting() != null ? String.valueOf(humanBeing.getMinutesOfWaiting()) : "");
+                humanElement.addElement("weaponType").setText(String.valueOf(humanBeing.getWeaponType()));
+
+                Element carElement = humanElement.addElement("car");
+                carElement.addElement("name").setText(humanBeing.getCar() != null ? String.valueOf(humanBeing.getCar()) : "");
             }
 
-            writer.write("</humanBeings>");
-            console.println("Коллекция успешно сохранена в XML файл!");
+            OutputFormat format = OutputFormat.createPrettyPrint();
+            format.setEncoding("UTF-8");
+
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+                XMLWriter xmlWriter = new XMLWriter(writer, format);
+                xmlWriter.write(document);
+                console.println("Коллекция успешно сохранена в файл!");
+            }
         } catch (IOException e) {
             console.printError("Ошибка записи в файл: " + e.getMessage());
         }
@@ -78,117 +80,71 @@ public class DumpManager {
     public TreeMap<Integer, HumanBeing> readCollection() {
         TreeMap<Integer, HumanBeing> collection = new TreeMap<>();
 
-        try (Scanner scanner = new Scanner(new File(fileName))) {
-            if (!scanner.hasNextLine()) {
+        try (Scanner fileScanner = new Scanner(new File(fileName))) {
+            StringBuilder xmlContent = new StringBuilder();
+            while (fileScanner.hasNextLine()) {
+                xmlContent.append(fileScanner.nextLine());
+            }
+
+            if (xmlContent.isEmpty()) {
                 console.printError("Файл пуст");
                 return collection;
             }
 
-            // Skip XML declaration and root tag
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine().trim();
-                if (line.startsWith("<humanBeing ")) {
-                    int id = Integer.parseInt(line.split("\"")[1]);
-                    String name = "";
-                    long x = 0;
-                    Float y = null;
-                    LocalDate creationDate = null;
-                    Boolean realHero = null;
-                    Boolean hasToothpick = null;
-                    float impactSpeed = 0;
-                    String soundtrackName = "";
-                    Double minutesOfWaiting = null;
-                    WeaponType weaponType = null;
-                    Car car = null;
+            SAXReader reader = new SAXReader();
+            Document document = reader.read(new StringReader(xmlContent.toString()));
+            Element root = document.getRootElement();
 
-                    while (scanner.hasNextLine()) {
-                        line = scanner.nextLine().trim();
-                        if (line.startsWith("</humanBeing>")) break;
+            for (Element humanElement : root.elements("humanBeing")) {
+                try {
+                    int id = Integer.parseInt(humanElement.attributeValue("id"));
 
-                        if (line.startsWith("<name>")) {
-                            name = line.replace("<name>", "").replace("</name>", "");
-                        } else if (line.startsWith("<coordinates>")) {
-                            while (!line.contains("</coordinates>")) {
-                                line = scanner.nextLine().trim();
-                                if (line.startsWith("<x>")) {
-                                    x = Long.parseLong(line.replace("<x>", "").replace("</x>", ""));
-                                } else if (line.startsWith("<y>")) {
-                                    y = Float.parseFloat(line.replace("<y>", "").replace("</y>", "").replace(",", "."));
-                                }
-                            }
-                        } else if (line.startsWith("<creationDate>")) {
-                            creationDate = LocalDate.parse(line.replace("<creationDate>", "").replace("</creationDate>", ""));
-                        } else if (line.startsWith("<realHero>")) {
-                            realHero = Boolean.parseBoolean(line.replace("<realHero>", "").replace("</realHero>", ""));
-                        } else if (line.startsWith("<hasToothpick>")) {
-                            hasToothpick = Boolean.parseBoolean(line.replace("<hasToothpick>", "").replace("</hasToothpick>", ""));
-                        } else if (line.startsWith("<impactSpeed>")) {
-                            impactSpeed = Float.parseFloat(line.replace("<impactSpeed>", "").replace("</impactSpeed>", "").replace(",", "."));
-                        } else if (line.startsWith("<soundtrackName>")) {
-                            soundtrackName = line.replace("<soundtrackName>", "").replace("</soundtrackName>", "");
-                        } else if (line.startsWith("<minutesOfWaiting>")) {
-                            String value = line.replace("<minutesOfWaiting>", "").replace("</minutesOfWaiting>", "");
-                            if (!value.equals("null")) {
-                                minutesOfWaiting = Double.parseDouble(value.replace(",", "."));
-                            }
-                        } else if (line.startsWith("<weaponType>")) {
-                            weaponType = WeaponType.valueOf(line.replace("<weaponType>", "").replace("</weaponType>", ""));
-                        } else if (line.startsWith("<car>")) {
-                            String value = line.replace("<car>", "").replace("</car>", "");
-                            if (!value.equals("null")) {
-                                car = new Car.Builder().name(unescapeXml(value)).build();
-                            }
-                        }
-                    }
+                    String name = humanElement.elementText("name");
+                    LocalDate creationDate = LocalDate.parse(humanElement.elementText("creationDate"));
 
-                    HumanBeing humanBeing = new HumanBeing.Builder(id, creationDate)
-                            .name(unescapeXml(name))
-                            .coordinates(new Coordinates.Builder().x(x).y(y).build())
+                    Element coordElement = humanElement.element("coordinates");
+                    long x = Long.parseLong(coordElement.elementText("x"));
+                    Float y = !Objects.equals(coordElement.elementText("y"), "") ? Float.parseFloat(coordElement.elementText("y")) : null;
+                    Coordinates coordinates = new Coordinates.Builder().x(x).y(y).build();
+
+                    Boolean realHero = !Objects.equals(humanElement.elementText("realHero"), "") ? Boolean.parseBoolean(humanElement.elementText("realHero")) : null;
+                    Boolean hasToothpick = !Objects.equals(humanElement.elementText("hasToothpick"), "") ? Boolean.parseBoolean(humanElement.elementText("hasToothpick")) : null;
+                    float impactSpeed = Float.parseFloat(humanElement.elementText("impactSpeed"));
+                    String soundtrackName = humanElement.elementText("soundtrackName");
+                    Double minutesOfWaiting = !Objects.equals(humanElement.elementText("minutesOfWaiting"), "") ? Double.parseDouble(humanElement.elementText("minutesOfWaiting")) : null;
+                    WeaponType weaponType = WeaponType.valueOf(humanElement.elementText("weaponType"));
+
+                    Element carElement = humanElement.element("car");
+                    String nameCar = carElement.elementText("name");
+                    Car car = new Car.Builder().name(nameCar).build();
+
+                    HumanBeing human = new HumanBeing.Builder(id, creationDate)
+                            .name(name)
+                            .coordinates(coordinates)
                             .realHero(realHero)
                             .hasToothpick(hasToothpick)
                             .impactSpeed(impactSpeed)
-                            .soundtrackName(unescapeXml(soundtrackName))
+                            .soundtrackName(soundtrackName)
                             .minutesOfWaiting(minutesOfWaiting)
                             .weaponType(weaponType)
                             .car(car)
                             .build();
 
-                    collection.put(id, humanBeing);
+                    collection.put(id, human);
+                } catch (Exception e) {
+                    console.printError("Ошибка парсинга элемента humanBeing: " + e.getMessage());
                 }
             }
 
-            console.println("Коллекция успешно загружена из XML!");
+            console.println("Коллекция успешно загружена!");
+        } catch (FileNotFoundException e) {
+            console.printError("Файл не найден: " + e.getMessage());
+        } catch (DocumentException e) {
+            console.printError("Ошибка парсинга: " + e.getMessage());
         } catch (Exception e) {
-            console.printError("Ошибка чтения XML: " + e.getMessage());
+            console.printError("Непредвиденная ошибка: " + e.getMessage());
         }
 
         return collection;
-    }
-
-    private String getElementText(Element parent, String tagName) {
-        return parent.getElementsByTagName(tagName).item(0).getTextContent();
-    }
-
-    private String escapeXml(String input) {
-        if (input == null) {
-            return "";
-        }
-        return input.replace("&", "&amp;")
-                .replace("<", "&lt;")
-                .replace(">", "&gt;")
-                .replace("\"", "&quot;")
-                .replace("'", "&apos;");
-    }
-
-    private String unescapeXml(String input) {
-        if (input == null) {
-            return "";
-        }
-        return input.replace("&amp;", "&")
-                .replace("&gt;", ">")
-                .replace("&lt;", "<")
-                .replace("&quot;", "\"")
-                .replace("&apos;", "'");
-
     }
 }

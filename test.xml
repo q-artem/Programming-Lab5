@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<humanBeings>
+  <humanBeing id="1">
+    <name>human</name>
+    <coordinates>
+      <x>0</x>
+      <y>3.0</y>
+    </coordinates>
+    <creationDate>2025-04-29</creationDate>
+    <realHero></realHero>
+    <hasToothpick></hasToothpick>
+    <impactSpeed>1.0</impactSpeed>
+    <soundtrackName>soundtrack</soundtrackName>
+    <minutesOfWaiting></minutesOfWaiting>
+    <weaponType>HAMMER</weaponType>
+    <car>
+      <name>car</name>
+    </car>
+  </humanBeing>
+</humanBeings>
