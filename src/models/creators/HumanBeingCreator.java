@@ -10,8 +10,8 @@ public class HumanBeingCreator {
     static private final Map<String, Boolean> trueFalseMap = Map.of("1", true, "2", false);
     static private final Map<String, WeaponType> weaponTypes = Map.of("1", WeaponType.HAMMER, "2", WeaponType.AXE, "3", WeaponType.KNIFE);
 
-    public static HumanBeing createHumanBeing(Console console, String mess) {
-        console.println(mess);
+    public static HumanBeing createHumanBeing(Console console) {
+        console.println("Инициализировано создание Персонажа (HumanBeing)");
         HumanBeing.Builder builder = new HumanBeing.Builder();
         builder.name(askName(console));
         builder.coordinates(CoordinatesCreator.createCoordinates(console));

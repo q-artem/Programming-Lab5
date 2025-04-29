@@ -32,7 +32,7 @@ public class Main {
 
         for (var e : humanBeings.values()) System.out.println(e);
 
-        HumanBeing human2 = HumanBeingCreator.createHumanBeing(console, "1111");
+        HumanBeing human2 = HumanBeingCreator.createHumanBeing(console);
         humanBeings.put(human2.getId(), human2);
 //
 //        for (var e : humanBeings.values()) System.out.println(e);

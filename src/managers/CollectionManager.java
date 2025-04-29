@@ -54,16 +54,6 @@ public class CollectionManager {
     }
 
     /**
-     * Получить свободный ID
-     */
-    public int getFreeId() {
-        while (getById(currentId) != null) {
-            currentId++;
-        }
-        return currentId;
-    }
-
-    /**
      * Добавляет HumanBeing
      */
     public boolean add(HumanBeing a) {
