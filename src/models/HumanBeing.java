@@ -22,7 +22,7 @@ public class HumanBeing extends Element implements Validatable {
     private Car car; //Поле МОЖЕТ быть null
 
     public HumanBeing() {
-        this.id = IdGenerator.assigntHumanBeingId();
+        this.id = IdGenerator.assignHumanBeingId();
         this.creationDate = LocalDate.now();
     }
 
@@ -131,7 +131,7 @@ public class HumanBeing extends Element implements Validatable {
                 "\"soundtrackName\": \"" + soundtrackName + "\", " +
                 "\"minutesOfWaiting\": " + minutesOfWaiting + ", " +
                 "\"weaponType\": \"" + weaponType + "\", " +
-                "\"car\": " + (car == null ? "null" : car) +
+                "\"car\": " + car +
                 "}";
     }
 

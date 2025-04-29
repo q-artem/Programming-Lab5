@@ -20,12 +20,12 @@ public class CoordinatesCreator {
     private static long askX() {
         Long x = null;
         while (!Coordinates.validateX(x)) {
-            x = console.getUserValueLong("Введите координату x (x)");
+            x = console.getUserValueLong("Введите координату x (x). Пример ввода: 314. Не может быть пустым");
         }
         return x;
     }
 
     private static Float askY() {
-        return console.getUserValueFloat("Введите координату y (y)");
+        return console.getUserValueFloat("Введите координату y (y). Пример ввода: 3.14. По умолчанию - нет значения");
     }
 }

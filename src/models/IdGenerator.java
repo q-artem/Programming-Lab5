@@ -26,7 +26,7 @@ public class IdGenerator {
     }
 
 
-    public static int assigntHumanBeingId() {
+    public static int assignHumanBeingId() {
         HumanBeingCounter++;
         return HumanBeingCounter;
     }

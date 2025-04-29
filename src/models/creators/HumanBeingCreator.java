@@ -14,7 +14,7 @@ public class HumanBeingCreator {
     static private final Map<String, WeaponType> weaponTypes = Map.of("1", WeaponType.HAMMER, "2", WeaponType.AXE, "3", WeaponType.KNIFE);
 
     public static HumanBeing createHumanBeing(String mess) {
-        console.print(mess);
+        console.println(mess);
         HumanBeing.Builder builder = new HumanBeing.Builder();
         builder.name(askName());
         builder.coordinates(CoordinatesCreator.createCoordinates());
@@ -65,7 +65,7 @@ public class HumanBeingCreator {
     private static float askImpactSpeed() {
         Float impactSpeed = null;
         while (!HumanBeing.validateImpactSpeed(impactSpeed)) {
-            impactSpeed = console.getUserValueFloat("Введите скорость удара (impactSpeed). Пример ввода: 3.14");
+            impactSpeed = console.getUserValueFloat("Введите скорость удара (impactSpeed). Пример ввода: 3.14. Не может быть пустым");
         }
         return impactSpeed;
     }
@@ -79,7 +79,7 @@ public class HumanBeingCreator {
     }
 
     private static Double askMinutesOfWaiting() {
-        return console.getUserValueDouble("Введите время ожидания в минутах (minutesOfWaiting). Пример ввода: 2.71");
+        return console.getUserValueDouble("Введите время ожидания в минутах (minutesOfWaiting). Пример ввода: 2.71. По умолчанию - нет значения");
     }
 
     private static WeaponType askWeaponType() {

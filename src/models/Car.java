@@ -21,7 +21,7 @@ public class Car implements Validatable {
 
     @Override
     public String toString() {
-        return name;
+        return name == null ? "null" : name;
     }
 
     public boolean equals(Object o) {
