@@ -1,0 +1,49 @@
+package commands;
+
+import commands.utils.Command;
+import managers.CollectionManager;
+import models.HumanBeing;
+import models.creators.HumanBeingCreator;
+import utility.ExecutionResponse;
+import utility.console.Console;
+
+/**
+ * Command 'insert'. Adds new element to collection with specified key.
+ */
+public class Insert extends Command {
+    private final Console console;
+    private final CollectionManager collectionManager;
+
+    public Insert(Console console, CollectionManager collectionManager) {
+        super("insert <key> {element}", "Добавить в коллекцию новый элемент с заданным ключом");
+        this.console = console;
+        this.collectionManager = collectionManager;
+    }
+
+    @Override
+    public ExecutionResponse apply(String[] arguments) {
+        if (arguments.length < 2) {
+            return new ExecutionResponse(false, "Ключ должен быть указан!\nИспользование: '" + getName() + "'");
+        }
+
+        try {
+            int key = Integer.parseInt(arguments[1]);
+            if (key < 1) throw new NumberFormatException();
+
+            if (collectionManager.getById(key) != null) {
+                return new ExecutionResponse(false, "Элемент с таким ключом уже существует!");
+            }
+
+            HumanBeing humanBeing = HumanBeingCreator.createHumanBeing(console);
+
+            if (humanBeing != null && humanBeing.validate()) {
+                collectionManager.getCollection().put(key, humanBeing);
+                return new ExecutionResponse("HumanBeing успешно добавлен с ключом " + key + "!");
+            } else {
+                return new ExecutionResponse(false, "Значения полей HumanBeing некорректны! Создание прервано.");
+            }
+        } catch (NumberFormatException e) {
+            return new ExecutionResponse(false, "Ключ должен быть натуральным числом больше 0!");
+        }
+    }
+}

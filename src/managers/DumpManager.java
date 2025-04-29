@@ -144,7 +144,5 @@ public class DumpManager {
         } catch (Exception e) {
             console.printError("Непредвиденная ошибка: " + e.getMessage());
         }
-
-        console.println("Коллекция успешна загружена!");
     }
 }

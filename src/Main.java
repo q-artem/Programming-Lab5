@@ -1,4 +1,4 @@
-import commands.Add;
+import commands.*;
 import managers.CollectionManager;
 import managers.CommandManager;
 import managers.DumpManager;
@@ -11,10 +11,7 @@ public class Main {
         Console console = new StandartConsole();
 
         if (args.length == 0) {
-            console.println(
-
-                    "Введите имя загружаемого файла как аргумент командной строки");
-
+            console.println("Введите имя загружаемого файла как аргумент командной строки");
             System.exit(1);
         }
 
@@ -25,22 +22,23 @@ public class Main {
         }
 
         var commandManager = new CommandManager() {{
-//            register("help", new Help(console, this));
+            register("help", new Help(console, this));
 //            register("history", new History(console, this));
-//            register("info", new Info(console, collectionManager));
-//            register("show", new Show(console, collectionManager));
+            register("info", new Info(console, collectionManager));
+            register("show", new Show(console, collectionManager));
             register("add", new Add(console, collectionManager));
 //            register("update", new Update(console, collectionManager));
 //            register("remove_by_id", new RemoveById(console, collectionManager));
 //            register("clear", new Clear(console, collectionManager));
 //            register("save", new Save(console, collectionManager));
 //            register("execute_script", new ExecuteScript(console));
-//            register("exit", new Exit(console));
+            register("exit", new Exit(console));
 //            register("remove_at", new RemoveAt(console, collectionManager));
 //            register("remove_last", new RemoveLast(console, collectionManager));
 //            register("remove_any_by_character", new RemoveAnyByCharacter(console, collectionManager));
 //            register("max_by_character", new MaxByCharacter(console, collectionManager));
 //            register("print_unique_age", new PrintUniqueAge(console, collectionManager));
+            register("insert", new Insert(console, collectionManager));
         }};
 
         new Runner(console, commandManager).interactiveMode();
