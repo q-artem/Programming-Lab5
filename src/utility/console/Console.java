@@ -12,7 +12,7 @@ public interface Console {
 
     void println(Object obj);
 
-    String readln() throws AskBreak;
+    String readln();
 
     boolean isCanReadln();
 

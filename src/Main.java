@@ -44,7 +44,7 @@ public class Main {
         CollectionManager collectionManager = new CollectionManager(new DumpManager("test.xml", new StandartConsole()));
 
         Add add = new Add(console, collectionManager);
-        console.println(add.apply(""));
+        console.println(add.apply(new String[]{"add"}));
 
 //
 //        for (var e : humanBeings.values()) System.out.println(e);

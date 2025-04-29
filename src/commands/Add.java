@@ -26,9 +26,9 @@ public class Add extends Command {
      * @return Успешность выполнения команды и сообщение об успешности.
      */
     @Override
-    public ExecutionResponse apply(String argument) {
+    public ExecutionResponse apply(String[] argument) {
         try {
-            if (!argument.isEmpty()) return new ExecutionResponse(false, "Неправильное количество аргументов!\nИспользование: '" + getName() + "'");
+            if (!argument[1].isEmpty()) return new ExecutionResponse(false, "Неправильное количество аргументов!\nИспользование: '" + getName() + "'");
 
             HumanBeing humanBeing = HumanBeingCreator.createHumanBeing(console);
 

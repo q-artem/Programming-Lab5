@@ -10,5 +10,5 @@ public interface Executable {
      * @param arguments Аргумент для выполнения
      * @return результат выполнения
      */
-    ExecutionResponse apply(String arguments);
+    ExecutionResponse apply(String[] arguments);
 }
