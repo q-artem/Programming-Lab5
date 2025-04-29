@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class StandartConsole implements Console {
     private static final String prompt = "-> ";
     private static Scanner fileScanner = null;
-    private static Scanner defScanner = new Scanner(System.in);
+    private static final Scanner defScanner = new Scanner(System.in);
 
     @Override
     public void print(Object obj) {

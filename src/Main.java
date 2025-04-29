@@ -36,7 +36,8 @@ public class Main {
 //        for (var e : humanBeings.values()) System.out.println(e);
         DumpManager dumpManager = new DumpManager("test.xml", new StandartConsole());
         dumpManager.writeCollection(humanBeings);
-        TreeMap<Integer, HumanBeing> readHumanBeings = dumpManager.readCollection();
+        TreeMap<Integer, HumanBeing> readHumanBeings = new TreeMap<>();
+        dumpManager.readCollection(readHumanBeings);
 
         for (var e : readHumanBeings.values()) System.out.println(e);
     }

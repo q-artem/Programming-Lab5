@@ -75,10 +75,10 @@ public class DumpManager {
     /**
      * Читает коллекцию из XML файла
      *
-     * @return TreeMap с продуктами
+     * @param collection TreeMap для сохранения
      */
-    public TreeMap<Integer, HumanBeing> readCollection() {
-        TreeMap<Integer, HumanBeing> collection = new TreeMap<>();
+    public void readCollection(TreeMap<Integer, HumanBeing> collection) {
+        collection.clear();
 
         try (Scanner fileScanner = new Scanner(new File(fileName))) {
             StringBuilder xmlContent = new StringBuilder();
@@ -87,8 +87,8 @@ public class DumpManager {
             }
 
             if (xmlContent.isEmpty()) {
-                console.printError("Файл пуст");
-                return collection;
+                console.printError("Файл пуст!");
+                return;
             }
 
             SAXReader reader = new SAXReader();
@@ -145,6 +145,6 @@ public class DumpManager {
             console.printError("Непредвиденная ошибка: " + e.getMessage());
         }
 
-        return collection;
+        console.println("Коллекция успешна загружена!");
     }
 }

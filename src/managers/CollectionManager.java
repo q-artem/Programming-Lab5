@@ -95,7 +95,7 @@ public class CollectionManager {
 
     public boolean init() {
         collection.clear();
-        collection = dumpManager.readCollection();
+        dumpManager.readCollection(collection);
         lastInitTime = LocalDateTime.now();
         for (HumanBeing humanBeing : collection.values()) if (humanBeing.getId() > currentId) currentId = humanBeing.getId();
         return true;
