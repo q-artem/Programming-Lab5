@@ -3,6 +3,7 @@ import models.Coordinates;
 import models.HumanBeing;
 import managers.DumpManager;
 import models.creators.HumanBeingCreator;
+import utility.AskBreak;
 import utility.console.Console;
 import utility.console.StandartConsole;
 
@@ -32,7 +33,12 @@ public class Main {
 
         for (var e : humanBeings.values()) System.out.println(e);
 
-        HumanBeing human2 = HumanBeingCreator.createHumanBeing(console);
+        HumanBeing human2 = null;
+        try {
+            human2 = HumanBeingCreator.createHumanBeing(console);
+        } catch (AskBreak e) {
+            throw new RuntimeException(e);
+        }
         humanBeings.put(human2.getId(), human2);
 //
 //        for (var e : humanBeings.values()) System.out.println(e);
