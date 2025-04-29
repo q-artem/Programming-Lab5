@@ -4,7 +4,6 @@ import commands.utils.Command;
 import managers.CollectionManager;
 import models.HumanBeing;
 import models.creators.HumanBeingCreator;
-import utility.AskBreak;
 import utility.ExecutionResponse;
 import utility.console.Console;
 
@@ -27,7 +26,6 @@ public class Add extends Command {
      */
     @Override
     public ExecutionResponse apply(String[] argument) {
-        try {
             if (!argument[1].isEmpty()) return new ExecutionResponse(false, "Неправильное количество аргументов!\nИспользование: '" + getName() + "'");
 
             HumanBeing humanBeing = HumanBeingCreator.createHumanBeing(console);
@@ -37,8 +35,5 @@ public class Add extends Command {
                 return new ExecutionResponse("HumanBeing успешно добавлен!");
             } else
                 return new ExecutionResponse(false, "Поля HumanBeing не валидны! HumanBeing не создан!");
-        } catch (AskBreak e) {
-            return new ExecutionResponse(false, "Отмена...");
-        }
     }
 }

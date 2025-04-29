@@ -6,7 +6,7 @@ import models.HumanBeing;
 import models.WeaponType;
 import org.dom4j.DocumentException;
 import org.dom4j.io.SAXReader;
-import utility.console.StandartConsole;
+import utility.console.Console;
 
 import java.io.*;
 import java.time.LocalDate;
@@ -20,9 +20,9 @@ import org.dom4j.io.XMLWriter;
 
 public class DumpManager {
     private final String fileName;
-    private final StandartConsole console;
+    private final Console console;
 
-    public DumpManager(String fileName, StandartConsole console) {
+    public DumpManager(String fileName, Console console) {
         this.fileName = fileName;
         this.console = console;
     }

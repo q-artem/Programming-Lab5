@@ -1,9 +1,6 @@
 package utility.console;
 
-import utility.AskBreak;
-
 import java.util.NoSuchElementException;
-import java.util.Objects;
 import java.util.Scanner;
 
 public class StandartConsole implements Console {
@@ -25,19 +22,15 @@ public class StandartConsole implements Console {
         System.err.println("Error: " + obj);
     }
 
-    public String readln() throws NoSuchElementException, IllegalStateException, AskBreak {
-        String nextLine = (fileScanner != null ? fileScanner : defScanner).nextLine();
-        if (Objects.equals(nextLine, "exit")) {
-            throw new AskBreak();
-        }
-        return nextLine;
+    public String readln() throws NoSuchElementException, IllegalStateException {
+        return (fileScanner != null ? fileScanner : defScanner).nextLine();
     }
 
     public boolean isCanReadln() throws IllegalStateException {
         return (fileScanner != null ? fileScanner : defScanner).hasNextLine();
     }
 
-    private String getString(String mess) throws AskBreak {
+    private String getString(String mess) {
         this.println(mess);
         this.print(prompt);
         return this.readln();
@@ -48,11 +41,11 @@ public class StandartConsole implements Console {
         System.out.printf(" %-35s%-1s%n", elementLeft, elementRight);
     }
 
-    public String getUserValueString(String mess) throws AskBreak {
+    public String getUserValueString(String mess) {
         return getString(mess);
     }
 
-    public Float getUserValueFloat(String mess) throws AskBreak {
+    public Float getUserValueFloat(String mess) {
         float val = 0f;
         boolean floatInput = true;
         while (floatInput) {
@@ -70,7 +63,7 @@ public class StandartConsole implements Console {
         return val;
     }
 
-    public Double getUserValueDouble(String mess) throws AskBreak {
+    public Double getUserValueDouble(String mess) {
         double val = 0.0;
         boolean doubleInput = true;
         while (doubleInput) {
@@ -88,7 +81,7 @@ public class StandartConsole implements Console {
         return val;
     }
 
-    public Long getUserValueLong(String mess) throws AskBreak {
+    public Long getUserValueLong(String mess){
         long val = 0L;
         boolean longInput = true;
         while (longInput) {

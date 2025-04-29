@@ -83,7 +83,7 @@ public class CollectionManager {
         return true;
     }
 
-    public boolean init() {
+    public boolean loadCollection() {
         collection.clear();
         dumpManager.readCollection(collection);
         lastInitTime = LocalDateTime.now();

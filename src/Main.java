@@ -1,57 +1,49 @@
 import commands.Add;
 import managers.CollectionManager;
-import models.Car;
-import models.Coordinates;
-import models.HumanBeing;
+import managers.CommandManager;
 import managers.DumpManager;
+import utility.Runner;
 import utility.console.Console;
 import utility.console.StandartConsole;
-
-import java.util.TreeMap;
-
-import static models.WeaponType.HAMMER;
 
 public class Main {
     public static void main(String[] args) {
         Console console = new StandartConsole();
 
-        HumanBeing.Builder builder = new HumanBeing.Builder();
-        builder.name("human");
-        builder.coordinates(new Coordinates.Builder().x(0L).y(3F).build());
-        builder.soundtrackName("soundtrack");
-        builder.weaponType(HAMMER);
-        builder.car(new Car.Builder().name("car").build());
-        HumanBeing element = builder.build();
+        if (args.length == 0) {
+            console.println(
 
-        if (!element.validate()) {
-            System.out.println("Ошибка валидации объекта HumanBeing");
-            return;
+                    "Введите имя загружаемого файла как аргумент командной строки");
+
+            System.exit(1);
         }
 
-        TreeMap<Integer, HumanBeing> humanBeings = new TreeMap<>();
-        humanBeings.put(element.getId(), element);
+        var dumpManager = new DumpManager(args[0], console);
+        var collectionManager = new CollectionManager(dumpManager);
+        if (!collectionManager.loadCollection()) {
+            System.exit(1);
+        }
 
-        for (var e : humanBeings.values()) System.out.println(e);
+        var commandManager = new CommandManager() {{
+//            register("help", new Help(console, this));
+//            register("history", new History(console, this));
+//            register("info", new Info(console, collectionManager));
+//            register("show", new Show(console, collectionManager));
+            register("add", new Add(console, collectionManager));
+//            register("update", new Update(console, collectionManager));
+//            register("remove_by_id", new RemoveById(console, collectionManager));
+//            register("clear", new Clear(console, collectionManager));
+//            register("save", new Save(console, collectionManager));
+//            register("execute_script", new ExecuteScript(console));
+//            register("exit", new Exit(console));
+//            register("remove_at", new RemoveAt(console, collectionManager));
+//            register("remove_last", new RemoveLast(console, collectionManager));
+//            register("remove_any_by_character", new RemoveAnyByCharacter(console, collectionManager));
+//            register("max_by_character", new MaxByCharacter(console, collectionManager));
+//            register("print_unique_age", new PrintUniqueAge(console, collectionManager));
+        }};
 
-//        HumanBeing human2 = null;
-//        try {
-//            human2 = HumanBeingCreator.createHumanBeing(console);
-//        } catch (AskBreak e) {
-//            throw new RuntimeException(e);
-//        }
-//        humanBeings.put(human2.getId(), human2);
-
-        CollectionManager collectionManager = new CollectionManager(new DumpManager("test.xml", new StandartConsole()));
-
-        Add add = new Add(console, collectionManager);
-        console.println(add.apply(new String[]{"add"}));
-
-//
-//        for (var e : humanBeings.values()) System.out.println(e);
-        collectionManager.saveCollection();
-        console.print(collectionManager.toString());
-
-        for (var e : collectionManager.getCollection().values()) System.out.println(e);
+        new Runner(console, commandManager).interactiveMode();
     }
 
 }

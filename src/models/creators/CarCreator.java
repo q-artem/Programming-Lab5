@@ -1,11 +1,10 @@
 package models.creators;
 
 import models.Car;
-import utility.AskBreak;
 import utility.console.Console;
 
 public class CarCreator {
-    public static Car createCar(Console console) throws AskBreak {
+    public static Car createCar(Console console) {
         Car car = null;
         Car.Builder builder = new Car.Builder();
         console.println("Инициализировано создание машины (car)");
@@ -27,7 +26,7 @@ public class CarCreator {
         return car;
     }
 
-    private static String askName(Console console) throws AskBreak {
+    private static String askName(Console console) {
         String name = null;
         while (!Car.validateName(name)) {
             name = console.getUserValueString("Введите название машины (name). Не может быть пустым");

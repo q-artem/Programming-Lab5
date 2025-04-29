@@ -1,7 +1,5 @@
 package utility.console;
 
-import utility.AskBreak;
-
 import java.util.Scanner;
 
 /**
@@ -20,13 +18,13 @@ public interface Console {
 
     void printTable(Object obj1, Object obj2);
 
-    String getUserValueString(String mess) throws AskBreak;
+    String getUserValueString(String mess);
 
-    Float getUserValueFloat(String mess) throws AskBreak;
+    Float getUserValueFloat(String mess);
 
-    Double getUserValueDouble(String mess) throws AskBreak;
+    Double getUserValueDouble(String mess);
 
-    Long getUserValueLong(String mess) throws AskBreak;
+    Long getUserValueLong(String mess);
 
     void prompt();
 
