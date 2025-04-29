@@ -2,12 +2,9 @@ package models.creators;
 
 import models.Car;
 import utility.console.Console;
-import utility.console.StandartConsole;
 
 public class CarCreator {
-    private static final Console console = new StandartConsole();
-
-    public static Car createCar() {
+    public static Car createCar(Console console) {
         Car car = null;
         Car.Builder builder = new Car.Builder();
         console.println("Инициализировано создание машины (car)");
@@ -17,7 +14,7 @@ public class CarCreator {
 
             switch (console.getUserValueString("Создать машину? 1 - да, 2 - нет")) {
                 case ("1"):
-                    builder.name(askName());
+                    builder.name(askName(console));
                     car = builder.build();
                     correctField = false;
                     break;
@@ -29,7 +26,7 @@ public class CarCreator {
         return car;
     }
 
-    private static String askName() {
+    private static String askName(Console console) {
         String name = null;
         while (!Car.validateName(name)) {
             name = console.getUserValueString("Введите название машины (name). Не может быть пустым");

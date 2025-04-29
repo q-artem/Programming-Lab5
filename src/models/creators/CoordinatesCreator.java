@@ -2,22 +2,19 @@ package models.creators;
 
 import models.Coordinates;
 import utility.console.Console;
-import utility.console.StandartConsole;
 
 public class CoordinatesCreator {
-    private static final Console console = new StandartConsole();
-
-    public static Coordinates createCoordinates() {
+    public static Coordinates createCoordinates(Console console) {
         Coordinates.Builder builder = new Coordinates.Builder();
         console.println("Инициализировано создание координат (coordinates). Координаты обязательны");
 
-        builder.x(askX());
-        builder.y(askY());
+        builder.x(askX(console));
+        builder.y(askY(console));
         return builder.build();
 
     }
 
-    private static long askX() {
+    private static long askX(Console console) {
         Long x = null;
         while (!Coordinates.validateX(x)) {
             x = console.getUserValueLong("Введите координату x (x). Пример ввода: 314. Не может быть пустым");
@@ -25,7 +22,7 @@ public class CoordinatesCreator {
         return x;
     }
 
-    private static Float askY() {
+    private static Float askY(Console console) {
         return console.getUserValueFloat("Введите координату y (y). Пример ввода: 3.14. По умолчанию - нет значения");
     }
 }

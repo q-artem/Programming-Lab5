@@ -3,6 +3,7 @@ import models.Coordinates;
 import models.HumanBeing;
 import managers.DumpManager;
 import models.creators.HumanBeingCreator;
+import utility.console.Console;
 import utility.console.StandartConsole;
 
 import java.util.TreeMap;
@@ -11,6 +12,7 @@ import static models.WeaponType.HAMMER;
 
 public class Main {
     public static void main(String[] args) {
+        Console console = new StandartConsole();
 
         HumanBeing.Builder builder = new HumanBeing.Builder();
         builder.name("human");
@@ -30,7 +32,7 @@ public class Main {
 
         for (var e : humanBeings.values()) System.out.println(e);
 
-        HumanBeing human2 = HumanBeingCreator.createHumanBeing("1111");
+        HumanBeing human2 = HumanBeingCreator.createHumanBeing(console, "1111");
         humanBeings.put(human2.getId(), human2);
 //
 //        for (var e : humanBeings.values()) System.out.println(e);
