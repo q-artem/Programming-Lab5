@@ -5,6 +5,7 @@ import utility.Validatable;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 // Тип данных полей не соответствует комментариям. Тип данных был изменён.
 public class HumanBeing extends Element implements Validatable {
@@ -107,7 +108,6 @@ public class HumanBeing extends Element implements Validatable {
         return car.validate();
     }
 
-
     public boolean validate() {
         return HumanBeing.validateId(id) &&
                 validateName(name) &&
@@ -138,6 +138,29 @@ public class HumanBeing extends Element implements Validatable {
     @Override
     public int compareTo(Element element) {
         return this.id - element.getId();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        HumanBeing humanBeing = (HumanBeing) o;
+        return Objects.equals(id, humanBeing.id) &&
+                Objects.equals(name, humanBeing.name) &&
+                Objects.equals(coordinates, humanBeing.coordinates) &&
+                Objects.equals(creationDate, humanBeing.creationDate) &&
+                Objects.equals(realHero, humanBeing.realHero) &&
+                Objects.equals(hasToothpick, humanBeing.hasToothpick) &&
+                Objects.equals(impactSpeed, humanBeing.impactSpeed) &&
+                Objects.equals(soundtrackName, humanBeing.soundtrackName) &&
+                Objects.equals(minutesOfWaiting, humanBeing.minutesOfWaiting) &&
+                Objects.equals(weaponType, humanBeing.weaponType) &&
+                Objects.equals(car, humanBeing.car);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, coordinates, creationDate, realHero, hasToothpick, impactSpeed, soundtrackName, minutesOfWaiting, weaponType, car);
     }
 
     public static class Builder {

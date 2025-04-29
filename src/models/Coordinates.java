@@ -2,6 +2,8 @@ package models;
 
 import utility.Validatable;
 
+import java.util.Objects;
+
 public class Coordinates implements Validatable {
     private long x; //Значение поля должно быть больше -167, Поле не может быть null
     private Float y;
@@ -12,15 +14,6 @@ public class Coordinates implements Validatable {
 
     public Float getY() {
         return y;
-    }
-
-    public void setX(long x) {
-        if (x <= -167) throw new IllegalArgumentException("X must be > -167");
-        this.x = x;
-    }
-
-    public void setY(Float y) {
-        this.y = y;
     }
 
     public static boolean validateX(Long x) {
@@ -34,6 +27,19 @@ public class Coordinates implements Validatable {
     @Override
     public String toString() {
         return "(" + x + "; " + y + ")";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Coordinates that = (Coordinates) obj;
+        return Objects.equals(x, that.x) && Objects.equals(y, that.y);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
     }
 
     public static class Builder {
