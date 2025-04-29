@@ -1,9 +1,9 @@
+import commands.Add;
+import managers.CollectionManager;
 import models.Car;
 import models.Coordinates;
 import models.HumanBeing;
 import managers.DumpManager;
-import models.creators.HumanBeingCreator;
-import utility.AskBreak;
 import utility.console.Console;
 import utility.console.StandartConsole;
 
@@ -33,21 +33,25 @@ public class Main {
 
         for (var e : humanBeings.values()) System.out.println(e);
 
-        HumanBeing human2 = null;
-        try {
-            human2 = HumanBeingCreator.createHumanBeing(console);
-        } catch (AskBreak e) {
-            throw new RuntimeException(e);
-        }
-        humanBeings.put(human2.getId(), human2);
+//        HumanBeing human2 = null;
+//        try {
+//            human2 = HumanBeingCreator.createHumanBeing(console);
+//        } catch (AskBreak e) {
+//            throw new RuntimeException(e);
+//        }
+//        humanBeings.put(human2.getId(), human2);
+
+        CollectionManager collectionManager = new CollectionManager(new DumpManager("test.xml", new StandartConsole()));
+
+        Add add = new Add(console, collectionManager);
+        console.println(add.apply(""));
+
 //
 //        for (var e : humanBeings.values()) System.out.println(e);
-        DumpManager dumpManager = new DumpManager("test.xml", new StandartConsole());
-        dumpManager.writeCollection(humanBeings);
-        TreeMap<Integer, HumanBeing> readHumanBeings = new TreeMap<>();
-        dumpManager.readCollection(readHumanBeings);
+        collectionManager.saveCollection();
+        console.print(collectionManager.toString());
 
-        for (var e : readHumanBeings.values()) System.out.println(e);
+        for (var e : collectionManager.getCollection().values()) System.out.println(e);
     }
 
 }
