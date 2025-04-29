@@ -8,7 +8,7 @@ import utility.ExecutionResponse;
 import utility.console.Console;
 
 /**
- * Command 'insert'. Adds new element to collection with specified key.
+ * Команда 'insert'. Вставить новый элемент в коллекцию по указанному ключу.
  */
 public class Insert extends Command {
     private final Console console;

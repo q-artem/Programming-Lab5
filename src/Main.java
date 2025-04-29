@@ -33,7 +33,7 @@ public class Main {
 //            register("save", new Save(console, collectionManager));
 //            register("execute_script", new ExecuteScript(console));
             register("exit", new Exit(console));
-//            register("remove_at", new RemoveAt(console, collectionManager));
+            register("remove", new Remove(console, collectionManager));
 //            register("remove_last", new RemoveLast(console, collectionManager));
 //            register("remove_any_by_character", new RemoveAnyByCharacter(console, collectionManager));
 //            register("max_by_character", new MaxByCharacter(console, collectionManager));
