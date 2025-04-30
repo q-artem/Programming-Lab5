@@ -29,9 +29,9 @@ public class Main {
             register("add", new Add(console, collectionManager));
 //            register("update", new Update(console, collectionManager));
 //            register("remove_by_id", new RemoveById(console, collectionManager));
-//            register("clear", new Clear(console, collectionManager));
-//            register("save", new Save(console, collectionManager));
-//            register("execute_script", new ExecuteScript(console));
+            register("clear", new Clear(console, collectionManager));
+            register("save", new Save(console, collectionManager));
+            register("execute_script", new ExecuteScript(console));
             register("exit", new Exit(console));
             register("remove", new Remove(console, collectionManager));
 //            register("remove_last", new RemoveLast(console, collectionManager));
