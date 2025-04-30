@@ -76,17 +76,18 @@ public class HumanBeingCreator {
     }
 
     private static Double askMinutesOfWaiting(Console console) {
-        return console.getUserValueDouble("Введите время ожидания в минутах (minutesOfWaiting). Пример ввода: 2.71. По умолчанию - нет значения");
+        Double minutesOfWaiting = -1.0;
+        while (!HumanBeing.validateMinutesOfWaiting(minutesOfWaiting)) {
+            minutesOfWaiting = console.getUserValueDouble("Введите время ожидания в минутах (minutesOfWaiting). Пример ввода: 2.71. По умолчанию - нет значения");
+        }
+        return minutesOfWaiting;
     }
 
     private static WeaponType askWeaponType(Console console) {
         WeaponType weaponType = null;
         String userRequest;
         while (weaponType == null) {
-            userRequest = console.getUserValueString("Введите тип оружия (weaponType)? 1 - молот, 2 - топор, 3 - нож. По умолчанию - нет значения");
-            if (userRequest.isEmpty()) {
-                break;
-            }
+            userRequest = console.getUserValueString("Введите тип оружия (weaponType)? 1 - молот, 2 - топор, 3 - нож. Не может быть пустым");
             weaponType = weaponTypes.get(userRequest);
         }
         return weaponType;

@@ -17,7 +17,7 @@ public class HumanBeing extends Element implements Validatable {
     private Boolean hasToothpick;
     private float impactSpeed; //Поле не может быть null
     private String soundtrackName; //Поле не может быть null
-    private Double minutesOfWaiting;
+    private Double minutesOfWaiting; // ДОЛЖНО быть не отрицательным
     private WeaponType weaponType; //Поле не может быть null
     private Car car; //Поле МОЖЕТ быть null
 
@@ -100,12 +100,16 @@ public class HumanBeing extends Element implements Validatable {
         return soundtrackName != null;
     }
 
+    public static boolean validateMinutesOfWaiting(Double minutesOfWaiting) {
+        return minutesOfWaiting == null || minutesOfWaiting >= 0;
+    }
+
     public static boolean validateWeaponType(WeaponType weaponType) {
         return weaponType != null;
     }
 
     public static boolean validateCar(Car car) {
-        return car.validate();
+        return car == null || car.validate();
     }
 
     public boolean validate() {
@@ -115,6 +119,7 @@ public class HumanBeing extends Element implements Validatable {
                 validateCreationDate(creationDate) &&
                 // impactSpeed never been null
                 validateSoundtrackName(soundtrackName) &&
+                validateMinutesOfWaiting(minutesOfWaiting) &&
                 validateWeaponType(weaponType) &&
                 validateCar(car);
     }

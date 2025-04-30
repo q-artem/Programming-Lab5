@@ -17,7 +17,7 @@ public class CoordinatesCreator {
     private static long askX(Console console) {
         Long x = null;
         while (!Coordinates.validateX(x)) {
-            x = console.getUserValueLong("Введите координату x (x). Пример ввода: 314. Не может быть пустым");
+            x = console.getUserValueLong("Введите координату x (x). Пример ввода: 314. Должно быть больше -167. Не может быть пустым");
         }
         return x;
     }

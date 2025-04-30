@@ -1,6 +1,7 @@
 package managers;
 
 import models.HumanBeing;
+import models.IdGenerator;
 
 import java.time.LocalDateTime;
 import java.util.TreeMap;
@@ -88,6 +89,7 @@ public class CollectionManager {
         dumpManager.readCollection(collection);
         lastInitTime = LocalDateTime.now();
         for (HumanBeing humanBeing : collection.values()) if (humanBeing.getId() > currentId) currentId = humanBeing.getId();
+        IdGenerator.restoreHumanBeingCounter(collection);
         return true;
     }
 

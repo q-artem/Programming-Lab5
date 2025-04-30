@@ -4,11 +4,11 @@ package models;
 import java.util.TreeMap;
 
 public class IdGenerator {
-    private static Integer HumanBeingCounter = 0;
+    private static Integer humanBeingCounter = 0;
 
 
     private static void setHumanBeingCounter(Integer idCounter) {
-        HumanBeingCounter = idCounter;
+        humanBeingCounter = idCounter;
     }
 
 
@@ -20,14 +20,14 @@ public class IdGenerator {
 
         // TreeMap хранит элементы в отсортированном порядке, поэтому последний элемент имеет максимальный ID
         Integer lastKey = humanBeingTreeMap.lastKey();
-        if (lastKey > HumanBeingCounter) {
+        if (lastKey > humanBeingCounter) {
             setHumanBeingCounter(lastKey);
         }
     }
 
 
     public static int assignHumanBeingId() {
-        HumanBeingCounter++;
-        return HumanBeingCounter;
+        humanBeingCounter++;
+        return humanBeingCounter;
     }
 }

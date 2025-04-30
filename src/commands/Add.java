@@ -31,9 +31,11 @@ public class Add extends Command {
             HumanBeing humanBeing = HumanBeingCreator.createHumanBeing(console);
 
             if (humanBeing != null && humanBeing.validate()) {
-                collectionManager.add(humanBeing);
+                if (collectionManager.add(humanBeing)) {
+                    return new ExecutionResponse("HumanBeing уже содержится в коллекции (пересечение по id)!");
+                }
                 return new ExecutionResponse("HumanBeing успешно добавлен!");
-            } else
-                return new ExecutionResponse(false, "Поля HumanBeing не валидны! HumanBeing не создан!");
+            }
+            return new ExecutionResponse(false, "Поля HumanBeing не валидны! HumanBeing не создан!");
     }
 }

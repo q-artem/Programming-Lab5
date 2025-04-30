@@ -23,7 +23,7 @@ public class StandartConsole implements Console {
     }
 
     public String readln() throws NoSuchElementException, IllegalStateException {
-        return (fileScanner != null ? fileScanner : defScanner).nextLine();
+        return (fileScanner != null ? fileScanner : defScanner).nextLine().trim();
     }
 
     public boolean isCanReadln() throws IllegalStateException {
