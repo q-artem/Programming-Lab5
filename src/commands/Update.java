@@ -8,14 +8,14 @@ import utility.ExecutionResponse;
 import utility.console.Console;
 
 /**
- * Команда 'insert'. Вставить новый элемент в коллекцию по указанному ключу.
+ * Команда 'update'. Обновляет значение элемента коллекции, id которого равен заданному.
  */
-public class Insert extends Command {
+public class Update extends Command {
     private final Console console;
     private final CollectionManager collectionManager;
 
-    public Insert(Console console, CollectionManager collectionManager) {
-        super("insert <key> {element}", "Добавить в коллекцию новый элемент с заданным ключом");
+    public Update(Console console, CollectionManager collectionManager) {
+        super("update <key> {element}", "Обновить значение элемента коллекции, id которого равен заданному");
         this.console = console;
         this.collectionManager = collectionManager;
     }
@@ -30,15 +30,16 @@ public class Insert extends Command {
             int key = Integer.parseInt(arguments[1]);
             if (key < 1) throw new NumberFormatException();
 
-            if (collectionManager.getById(key) != null) {
-                return new ExecutionResponse(false, "Элемент с таким ключом уже существует!");
+            if (collectionManager.getById(key) == null) {
+                return new ExecutionResponse(false, "Элемента с таким ключом не существует!");
             }
 
-            HumanBeing humanBeing = HumanBeingCreator.createHumanBeing(console, null);
+            HumanBeing humanBeing = HumanBeingCreator.createHumanBeing(console, key);
 
             if (humanBeing != null && humanBeing.validate()) {
+                collectionManager.getCollection().remove(key);
                 collectionManager.getCollection().put(key, humanBeing);
-                return new ExecutionResponse("HumanBeing успешно добавлен с ключом " + key + "!");
+                return new ExecutionResponse("HumanBeing по ключу " + key + " успешно обновлён!");
             } else {
                 return new ExecutionResponse(false, "Значения полей HumanBeing некорректны! Создание прервано.");
             }

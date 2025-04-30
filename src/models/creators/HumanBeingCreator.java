@@ -1,18 +1,25 @@
 package models.creators;
 
+import commands.Insert;
 import models.HumanBeing;
 import models.WeaponType;
 import utility.console.Console;
 
+import java.time.LocalDate;
 import java.util.Map;
 
 public class HumanBeingCreator {
     static private final Map<String, Boolean> trueFalseMap = Map.of("1", true, "2", false);
     static private final Map<String, WeaponType> weaponTypes = Map.of("1", WeaponType.HAMMER, "2", WeaponType.AXE, "3", WeaponType.KNIFE);
 
-    public static HumanBeing createHumanBeing(Console console) {
+    public static HumanBeing createHumanBeing(Console console, Integer id) {
         console.println("Инициализировано создание Персонажа (HumanBeing)");
-        HumanBeing.Builder builder = new HumanBeing.Builder();
+        HumanBeing.Builder builder;
+        if (id != null) {
+            builder = new HumanBeing.Builder(id, LocalDate.now());
+        } else {
+            builder = new HumanBeing.Builder();
+        }
         builder.name(askName(console));
         builder.coordinates(CoordinatesCreator.createCoordinates(console));
         builder.realHero(askRealHero(console));

@@ -30,7 +30,7 @@ public class Add extends Command {
         if (!argument[1].isEmpty())
             return new ExecutionResponse(false, "Неправильное количество аргументов!\nИспользование: '" + getName() + "'");
 
-        HumanBeing humanBeing = HumanBeingCreator.createHumanBeing(console);
+        HumanBeing humanBeing = HumanBeingCreator.createHumanBeing(console, null);
 
         if (humanBeing != null && humanBeing.validate()) {
             if (collectionManager.add(humanBeing)) {

@@ -8,12 +8,12 @@ import utility.console.Console;
 /**
  * Команда 'remove'. Удалить элемент из коллекции по указанному ключу.
  */
-public class Remove extends Command {
+public class RemoveKey extends Command {
     private final Console console;
     private final CollectionManager collectionManager;
 
-    public Remove(Console console, CollectionManager collectionManager) {
-        super("remove <key>", "Удалить из коллекции элемент с заданным ключом");
+    public RemoveKey(Console console, CollectionManager collectionManager) {
+        super("remove_key <key>", "Удалить из коллекции элемент с заданным ключом");
         this.console = console;
         this.collectionManager = collectionManager;
     }

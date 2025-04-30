@@ -23,22 +23,23 @@ public class Main {
 
         var commandManager = new CommandManager() {{
             register("help", new Help(console, this));
+            register("add", new Add(console, collectionManager));
             register("load", new Load(console, collectionManager));
             register("info", new Info(console, collectionManager));
             register("show", new Show(console, collectionManager));
-            register("add", new Add(console, collectionManager));
-//            register("update", new Update(console, collectionManager));
-//            register("remove_by_id", new RemoveById(console, collectionManager));
+            register("insert", new Insert(console, collectionManager));
+            register("update", new Update(console, collectionManager));
+            register("remove_key", new RemoveKey(console, collectionManager));
             register("clear", new Clear(console, collectionManager));
             register("save", new Save(console, collectionManager));
             register("execute_script", new ExecuteScript(console));
             register("exit", new Exit(console));
-            register("remove", new Remove(console, collectionManager));
             register("remove_greater", new RemoveGreater(console, collectionManager));
-//            register("remove_any_by_character", new RemoveAnyByCharacter(console, collectionManager));
-//            register("max_by_character", new MaxByCharacter(console, collectionManager));
-//            register("print_unique_age", new PrintUniqueAge(console, collectionManager));
-            register("insert", new Insert(console, collectionManager));
+             register("remove_lower", new RemoveLower(console, collectionManager));
+            register("replace_if_greater", new ReplaceIfGreater(console, collectionManager));
+            register("sum_of_impact_speed", new SumOfImpactSpeed(console, collectionManager));
+            register("filter_less_than_car", new FilterLessThanCar(console, collectionManager));
+            register("print_field_descending_weapon_type", new PrintFieldDescendingWeaponType(console, collectionManager));
         }};
 
         new Runner(console, commandManager).interactiveMode();
