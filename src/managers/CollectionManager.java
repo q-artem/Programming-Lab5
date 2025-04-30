@@ -107,7 +107,7 @@ public class CollectionManager {
 
         StringBuilder info = new StringBuilder();
         for (HumanBeing humanBeing : collection.values()) {
-            info.append(humanBeing).append("\n\n");
+            info.append(humanBeing).append("\n");
         }
         return info.toString().trim();
     }

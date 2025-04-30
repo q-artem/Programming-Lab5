@@ -23,7 +23,7 @@ public class Main {
 
         var commandManager = new CommandManager() {{
             register("help", new Help(console, this));
-//            register("history", new History(console, this));
+            register("load", new Load(console, collectionManager));
             register("info", new Info(console, collectionManager));
             register("show", new Show(console, collectionManager));
             register("add", new Add(console, collectionManager));
@@ -34,7 +34,7 @@ public class Main {
             register("execute_script", new ExecuteScript(console));
             register("exit", new Exit(console));
             register("remove", new Remove(console, collectionManager));
-//            register("remove_last", new RemoveLast(console, collectionManager));
+            register("remove_greater", new RemoveGreater(console, collectionManager));
 //            register("remove_any_by_character", new RemoveAnyByCharacter(console, collectionManager));
 //            register("max_by_character", new MaxByCharacter(console, collectionManager));
 //            register("print_unique_age", new PrintUniqueAge(console, collectionManager));

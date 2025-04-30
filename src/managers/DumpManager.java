@@ -65,7 +65,6 @@ public class DumpManager {
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
                 XMLWriter xmlWriter = new XMLWriter(writer, format);
                 xmlWriter.write(document);
-                console.println("Коллекция успешно сохранена в файл!");
             }
         } catch (IOException e) {
             console.printError("Ошибка записи в файл: " + e.getMessage());

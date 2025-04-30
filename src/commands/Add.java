@@ -22,20 +22,23 @@ public class Add extends Command {
 
     /**
      * Выполняет команду
+     *
      * @return Успешность выполнения команды и сообщение об успешности.
      */
     @Override
     public ExecutionResponse apply(String[] argument) {
-            if (!argument[1].isEmpty()) return new ExecutionResponse(false, "Неправильное количество аргументов!\nИспользование: '" + getName() + "'");
+        if (!argument[1].isEmpty())
+            return new ExecutionResponse(false, "Неправильное количество аргументов!\nИспользование: '" + getName() + "'");
 
-            HumanBeing humanBeing = HumanBeingCreator.createHumanBeing(console);
+        HumanBeing humanBeing = HumanBeingCreator.createHumanBeing(console);
 
-            if (humanBeing != null && humanBeing.validate()) {
-                if (collectionManager.add(humanBeing)) {
-                    return new ExecutionResponse("HumanBeing уже содержится в коллекции (пересечение по id)!");
-                }
+        if (humanBeing != null && humanBeing.validate()) {
+            if (collectionManager.add(humanBeing)) {
                 return new ExecutionResponse("HumanBeing успешно добавлен!");
             }
-            return new ExecutionResponse(false, "Поля HumanBeing не валидны! HumanBeing не создан!");
+            return new ExecutionResponse("HumanBeing уже содержится в коллекции (пересечение по id)!");
+
+        }
+        return new ExecutionResponse(false, "Поля HumanBeing не валидны! HumanBeing не создан!");
     }
 }

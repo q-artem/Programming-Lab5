@@ -18,4 +18,21 @@
       <name>1</name>
     </car>
   </humanBeing>
+  <humanBeing id="3">
+    <name>name</name>
+    <coordinates>
+      <x>0</x>
+      <y>0.0</y>
+    </coordinates>
+    <creationDate>2025-04-30</creationDate>
+    <realHero>false</realHero>
+    <hasToothpick></hasToothpick>
+    <impactSpeed>2.0</impactSpeed>
+    <soundtrackName>1</soundtrackName>
+    <minutesOfWaiting>2.0</minutesOfWaiting>
+    <weaponType>AXE</weaponType>
+    <car>
+      <name></name>
+    </car>
+  </humanBeing>
 </humanBeings>
