@@ -35,7 +35,7 @@ public class Main {
             register("execute_script", new ExecuteScript(console));
             register("exit", new Exit(console));
             register("remove_greater", new RemoveGreater(console, collectionManager));
-             register("remove_lower", new RemoveLower(console, collectionManager));
+            register("remove_lower", new RemoveLower(console, collectionManager));
             register("replace_if_greater", new ReplaceIfGreater(console, collectionManager));
             register("sum_of_impact_speed", new SumOfImpactSpeed(console, collectionManager));
             register("filter_less_than_car", new FilterLessThanCar(console, collectionManager));
