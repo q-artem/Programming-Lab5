@@ -34,9 +34,11 @@ public class ReplaceIfGreater extends Command {
             HumanBeing newHuman = HumanBeingCreator.createHumanBeing(console, null);
             if (newHuman != null && newHuman.validate()) {
                 if (compareHumanBeings(newHuman, oldHuman)) {
-                    collectionManager.getCollection().remove(key);
-                    collectionManager.getCollection().put(key, newHuman);
-                    return new ExecutionResponse(true, "Элемент успешно заменён!");
+                    if (collectionManager.update(newHuman)) {
+                        return new ExecutionResponse(true, "Элемент успешно заменён!");
+                    } else {
+                        return new ExecutionResponse(false, "Ошибка!");
+                    }
                 } else {
                     return new ExecutionResponse(false, "Новое значение не больше старого - замена не произведена.");
                 }

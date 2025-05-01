@@ -10,12 +10,10 @@ import utility.console.Console;
  * Команда 'remove_lower'. Удаляет из коллекции все элементы, меньшие, чем заданный по id элемент.
  */
 public class RemoveLower extends Command {
-    private final Console console;
     private final CollectionManager collectionManager;
 
-    public RemoveLower(Console console, CollectionManager collectionManager) {
+    public RemoveLower(Console ignoredConsole, CollectionManager collectionManager) {
         super("remove_lower <key>", "удалить из коллекции все элементы, меньшие, чем заданный по id элемент");
-        this.console = console;
         this.collectionManager = collectionManager;
     }
 
@@ -37,9 +35,13 @@ public class RemoveLower extends Command {
             int count = 0;
             for (HumanBeing h : collectionManager.getCollection().values()) {
                 if (h.compareTo(comparisonHumanBeing) < 0) {
-                    collectionManager.getCollection().remove(h.getId());
-                    count++;
+                    if (collectionManager.remove(h.getId())) {
+                        count++;
+                    } else {
+                        return new ExecutionResponse(false, "Ошибка!");
+                    }
                 }
+
             }
 
             return new ExecutionResponse("Удалено элементов: " + count);

@@ -37,9 +37,11 @@ public class Update extends Command {
             HumanBeing humanBeing = HumanBeingCreator.createHumanBeing(console, key);
 
             if (humanBeing != null && humanBeing.validate()) {
-                collectionManager.getCollection().remove(key);
-                collectionManager.getCollection().put(key, humanBeing);
-                return new ExecutionResponse("HumanBeing по ключу " + key + " успешно обновлён!");
+                if (collectionManager.update(humanBeing)) {
+                    return new ExecutionResponse("HumanBeing по ключу " + key + " успешно обновлён!");
+                } else {
+                    return new ExecutionResponse(false, "Ошибка!");
+                }
             } else {
                 return new ExecutionResponse(false, "Значения полей HumanBeing некорректны! Создание прервано.");
             }

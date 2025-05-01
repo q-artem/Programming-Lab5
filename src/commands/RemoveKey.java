@@ -9,12 +9,10 @@ import utility.console.Console;
  * Команда 'remove'. Удалить элемент из коллекции по указанному ключу.
  */
 public class RemoveKey extends Command {
-    private final Console console;
     private final CollectionManager collectionManager;
 
-    public RemoveKey(Console console, CollectionManager collectionManager) {
+    public RemoveKey(Console ignoredConsole, CollectionManager collectionManager) {
         super("remove_key <key>", "Удалить из коллекции элемент с заданным ключом");
-        this.console = console;
         this.collectionManager = collectionManager;
     }
 
@@ -32,9 +30,11 @@ public class RemoveKey extends Command {
                 return new ExecutionResponse(false, "Элемента с таким ключом не существует!");
             }
 
-            collectionManager.getCollection().remove(key);
-            return new ExecutionResponse("HumanBeing с ключом " + key + " успешно удалён из коллекции!");
-
+            if (collectionManager.remove(key)) {
+                return new ExecutionResponse("HumanBeing с ключом " + key + " успешно удалён из коллекции!");
+            } else {
+                return new ExecutionResponse(false, "Ошибка!");
+            }
         } catch (NumberFormatException e) {
             return new ExecutionResponse(false, "Ключ должен быть натуральным числом больше 0!");
         }

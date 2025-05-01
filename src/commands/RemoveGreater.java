@@ -35,8 +35,11 @@ public class RemoveGreater extends Command {
             int count = 0;
             for (HumanBeing h : collectionManager.getCollection().values()) {
                 if (h.compareTo(comparationHumanBeing) > 0) {
-                    collectionManager.getCollection().remove(h.getId());
-                    count++;
+                    if (collectionManager.remove(h.getId())) {
+                        count++;
+                    } else {
+                        return new ExecutionResponse(false, "Ошибка!");
+                    }
                 }
             }
             return new ExecutionResponse("Удалено элементов: " + count);
