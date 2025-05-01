@@ -23,8 +23,8 @@ public class Main {
 
         var commandManager = new CommandManager() {{
             register("help", new Help(console, this));
-            register("add", new Add(console, collectionManager));
-            register("load", new Load(console, collectionManager));
+            register("add", new Add(console, collectionManager));  // additional command
+            register("load", new Load(console, collectionManager));  // additional command
             register("info", new Info(console, collectionManager));
             register("show", new Show(console, collectionManager));
             register("insert", new Insert(console, collectionManager));
@@ -41,7 +41,8 @@ public class Main {
             register("filter_less_than_car", new FilterLessThanCar(console, collectionManager));
             register("print_field_descending_weapon_type", new PrintFieldDescendingWeaponType(console, collectionManager));
         }};
+        commandManager.register("show_command_history", new ShowCommandHistory(console, commandManager));
 
-        new Runner(console, commandManager).interactiveMode();
+        new Runner(console, commandManager).interactiveMode();  // additional command
     }
 }
