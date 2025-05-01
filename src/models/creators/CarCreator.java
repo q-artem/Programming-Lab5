@@ -28,6 +28,9 @@ public class CarCreator {
         String name = null;
         while (!Car.validateName(name)) {
             name = console.getUserValueString("Введите название машины (name). Не может быть пустым");
+            if (!Car.validateName(name)) {
+                console.printError("Некорректный ввод! Попробуйте ещё раз");
+            }
         }
         return name;
     }

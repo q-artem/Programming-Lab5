@@ -16,6 +16,9 @@ public class CoordinatesCreator {
         Long x = null;
         while (!Coordinates.validateX(x)) {
             x = console.getUserValueLong("Введите координату x (x). Пример ввода: 314. Должно быть больше -167. Не может быть пустым");
+            if (!Coordinates.validateX(x)) {
+                console.printError("Некорректный ввод! Попробуйте ещё раз");
+            }
         }
         return x;
     }

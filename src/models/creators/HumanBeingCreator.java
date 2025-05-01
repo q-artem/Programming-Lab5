@@ -35,6 +35,9 @@ public class HumanBeingCreator {
         String name = null;
         while (!HumanBeing.validateName(name)) {
             name = console.getUserValueString("Введите имя (name). Не может быть пустым");
+            if (!HumanBeing.validateName(name)) {
+                console.printError("Некорректный ввод! Попробуйте ещё раз");
+            }
         }
         return name;
     }
@@ -48,6 +51,9 @@ public class HumanBeingCreator {
                 break;
             }
             realHero = trueFalseMap.get(userRequest);
+            if (realHero == null) {
+                console.printError("Некорректный ввод! Попробуйте ещё раз");
+            }
         }
         return realHero;
     }
@@ -61,6 +67,9 @@ public class HumanBeingCreator {
                 break;
             }
             hasToothpick = trueFalseMap.get(userRequest);
+            if (hasToothpick == null) {
+                console.printError("Некорректный ввод! Попробуйте ещё раз");
+            }
         }
         return hasToothpick;
     }
@@ -69,6 +78,9 @@ public class HumanBeingCreator {
         Float impactSpeed = null;
         while (!HumanBeing.validateImpactSpeed(impactSpeed)) {
             impactSpeed = console.getUserValueFloat("Введите скорость удара (impactSpeed). Пример ввода: 3.14. Не может быть пустым");
+            if (!HumanBeing.validateImpactSpeed(impactSpeed)) {
+                console.printError("Некорректный ввод! Попробуйте ещё раз");
+            }
         }
         return impactSpeed;
     }
@@ -77,6 +89,9 @@ public class HumanBeingCreator {
         String soundtrackName = null;
         while (!HumanBeing.validateSoundtrackName(soundtrackName)) {
             soundtrackName = console.getUserValueString("Введите название саундтрека (soundtrackName). Не может быть пустым");
+            if (!HumanBeing.validateSoundtrackName(soundtrackName)) {
+                console.printError("Некорректный ввод! Попробуйте ещё раз");
+            }
         }
         return soundtrackName;
     }
@@ -85,6 +100,9 @@ public class HumanBeingCreator {
         Double minutesOfWaiting = -1.0;
         while (!HumanBeing.validateMinutesOfWaiting(minutesOfWaiting)) {
             minutesOfWaiting = console.getUserValueDouble("Введите время ожидания в минутах (minutesOfWaiting). Пример ввода: 2.71. По умолчанию - нет значения");
+            if (!HumanBeing.validateMinutesOfWaiting(minutesOfWaiting)) {
+                console.printError("Некорректный ввод! Попробуйте ещё раз");
+            }
         }
         return minutesOfWaiting;
     }
@@ -95,6 +113,9 @@ public class HumanBeingCreator {
         while (weaponType == null) {
             userRequest = console.getUserValueString("Введите тип оружия (weaponType)? 1 - молот, 2 - топор, 3 - нож. Не может быть пустым");
             weaponType = weaponTypes.get(userRequest);
+            if (weaponType == null) {
+                console.printError("Некорректный ввод! Попробуйте ещё раз");
+            }
         }
         return weaponType;
     }
