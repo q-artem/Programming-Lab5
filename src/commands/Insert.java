@@ -34,7 +34,7 @@ public class Insert extends Command {
                 return new ExecutionResponse(false, "Элемент с таким ключом уже существует!");
             }
 
-            HumanBeing humanBeing = HumanBeingCreator.createHumanBeing(console, null);
+            HumanBeing humanBeing = HumanBeingCreator.createHumanBeing(console, key);
 
             if (humanBeing != null && humanBeing.validate()) {
                 collectionManager.getCollection().put(key, humanBeing);

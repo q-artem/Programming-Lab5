@@ -97,7 +97,7 @@ public class HumanBeing extends Element implements Validatable {
     }
 
     public static boolean validateSoundtrackName(String soundtrackName) {
-        return soundtrackName != null;
+        return soundtrackName != null && !soundtrackName.isEmpty();
     }
 
     public static boolean validateMinutesOfWaiting(Double minutesOfWaiting) {

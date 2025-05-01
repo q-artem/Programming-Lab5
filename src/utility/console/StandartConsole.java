@@ -50,14 +50,14 @@ public class StandartConsole implements Console {
         boolean floatInput = true;
         while (floatInput) {
             try {
-                String input = getString(mess);
+                String input = getString(mess).replace(",", ".");
                 if (input.isEmpty()) {
                     return null;
                 }
                 val = Float.parseFloat(input);
                 floatInput = false;
             } catch (NumberFormatException exception) {
-                this.println(exception.getMessage());
+                this.println("Ошибочный формат числа! Ошибка: " + exception.getMessage());
             }
         }
         return val;
@@ -68,14 +68,14 @@ public class StandartConsole implements Console {
         boolean doubleInput = true;
         while (doubleInput) {
             try {
-                String input = getString(mess);
+                String input = getString(mess).replace(",", ".");
                 if (input.isEmpty()) {
                     return null;
                 }
                 val = Double.parseDouble(input);
                 doubleInput = false;
             } catch (NumberFormatException exception) {
-                this.println(exception.getMessage());
+                this.println("Ошибочный формат числа! Ошибка: " + exception.getMessage());
             }
         }
         return val;
@@ -93,7 +93,7 @@ public class StandartConsole implements Console {
                 val = Long.parseLong(input);
                 longInput = false;
             } catch (NumberFormatException exception) {
-                this.println(exception.getMessage());
+                this.println("Ошибочный формат числа! Ошибка: " + exception.getMessage());
             }
         }
         return val;
