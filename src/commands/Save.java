@@ -9,17 +9,16 @@ import utility.console.Console;
  * Команда 'save'. Сохраняет коллекцию в файл.
  */
 public class Save extends Command {
-    private final Console console;
     private final CollectionManager collectionManager;
 
-    public Save(Console console, CollectionManager collectionManager) {
+    public Save(Console ignoredConsole, CollectionManager collectionManager) {
         super("save", "сохранить коллекцию в файл");
-        this.console = console;
         this.collectionManager = collectionManager;
     }
 
     /**
      * Выполняет команду
+     *
      * @return Успешность выполнения команды.
      */
     @Override

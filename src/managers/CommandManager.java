@@ -1,7 +1,6 @@
 package managers;
 
 import commands.utils.Command;
-import utility.Executable;
 
 import java.util.*;
 
@@ -11,8 +10,9 @@ public class CommandManager {
 
     /**
      * Добавляет команду.
+     *
      * @param commandName Название команды.
-     * @param command Команда.
+     * @param command     Команда.
      */
     public void register(String commandName, Command command) {
         commands.put(commandName, command);
@@ -34,6 +34,7 @@ public class CommandManager {
 
     /**
      * Добавляет команду в историю.
+     *
      * @param command Команда.
      */
     public void addToHistory(String command) {

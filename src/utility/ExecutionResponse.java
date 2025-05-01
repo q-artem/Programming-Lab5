@@ -1,7 +1,5 @@
 package utility;
 
-import models.HumanBeing;
-
 public class ExecutionResponse {
     private final boolean exitCode;
     private final String message;
@@ -24,7 +22,6 @@ public class ExecutionResponse {
     }
 
     public String toString() {
-        return String.valueOf(exitCode) + ";" + message;
+        return exitCode + "; " + message;
     }
-
 }

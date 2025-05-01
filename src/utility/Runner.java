@@ -29,7 +29,7 @@ public class Runner {
     public void interactiveMode() {
         try {
             ExecutionResponse commandStatus;
-            String[] userCommand = {"", ""};
+            String[] userCommand;
 
             while (true) {
                 console.prompt();
@@ -51,6 +51,7 @@ public class Runner {
 
     /**
      * Проверяет рекурсивность выполнения скриптов.
+     *
      * @param argument Название запускаемого скрипта
      * @return можно ли выполнять скрипт.
      */
@@ -84,11 +85,12 @@ public class Runner {
 
     /**
      * Режим для запуска скрипта.
+     *
      * @param argument Аргумент скрипта
      * @return Код завершения.
      */
     private ExecutionResponse scriptMode(String argument) {
-        String[] userCommand = {"", ""};
+        String[] userCommand;
         StringBuilder executionOutput = new StringBuilder();
 
         if (!new File(argument).exists()) return new ExecutionResponse(false, "Файл не существует!");
@@ -140,6 +142,7 @@ public class Runner {
 
     /**
      * Launchs the command.
+     *
      * @param userCommand Команда для запуска
      * @return Код завершения.
      */
@@ -147,16 +150,16 @@ public class Runner {
         if (userCommand[0].isEmpty()) return new ExecutionResponse("");
         var command = commandManager.getCommands().get(userCommand[0]);
 
-        if (command == null) return new ExecutionResponse(false, "Команда '" + userCommand[0] + "' не найдена. Наберите 'help' для справки");
+        if (command == null)
+            return new ExecutionResponse(false, "Команда '" + userCommand[0] + "' не найдена. Наберите 'help' для справки");
 
-        switch (userCommand[0]) {
-            case "execute_script" -> {
-                ExecutionResponse tmp = commandManager.getCommands().get("execute_script").apply(userCommand);
-                if (!tmp.getExitCode()) return tmp;
-                ExecutionResponse tmp2 = scriptMode(userCommand[1]);
-                return new ExecutionResponse(tmp2.getExitCode(), tmp.getMessage()+"\n"+tmp2.getMessage().trim());
-            }
-            default -> { return command.apply(userCommand); }
+        if (userCommand[0].equals("execute_script")) {
+            ExecutionResponse tmp = commandManager.getCommands().get("execute_script").apply(userCommand);
+            if (!tmp.getExitCode()) return tmp;
+            ExecutionResponse tmp2 = scriptMode(userCommand[1]);
+            return new ExecutionResponse(tmp2.getExitCode(), tmp.getMessage() + "\n" + tmp2.getMessage().trim());
+        } else {
+            return command.apply(userCommand);
         }
     }
 }

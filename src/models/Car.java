@@ -47,7 +47,6 @@ public class Car implements Validatable {
         public Car build() {
             Car car = new Car();
             car.name = this.name;
-
             return car;
         }
     }

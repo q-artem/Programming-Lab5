@@ -44,5 +44,4 @@ public class Main {
 
         new Runner(console, commandManager).interactiveMode();
     }
-
 }

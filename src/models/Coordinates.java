@@ -17,7 +17,7 @@ public class Coordinates implements Validatable {
     }
 
     public static boolean validateX(Long x) {
-        return x != null && x > -167; /////////////
+        return x != null && x > -167;
     }
 
     public boolean validate() {

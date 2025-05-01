@@ -88,7 +88,8 @@ public class CollectionManager {
         collection.clear();
         dumpManager.readCollection(collection);
         lastInitTime = LocalDateTime.now();
-        for (HumanBeing humanBeing : collection.values()) if (humanBeing.getId() > currentId) currentId = humanBeing.getId();
+        for (HumanBeing humanBeing : collection.values())
+            if (humanBeing.getId() > currentId) currentId = humanBeing.getId();
         IdGenerator.restoreHumanBeingCounter(collection);
         return true;
     }

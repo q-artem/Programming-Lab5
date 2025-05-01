@@ -11,7 +11,6 @@ public class CarCreator {
 
         boolean correctField = true;
         while (correctField) {
-
             switch (console.getUserValueString("Создать машину? 1 - да, 2 - нет")) {
                 case ("1"):
                     builder.name(askName(console));
@@ -22,7 +21,6 @@ public class CarCreator {
                     return null;
             }
         }
-
         return car;
     }
 

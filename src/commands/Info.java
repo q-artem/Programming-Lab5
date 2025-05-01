@@ -8,17 +8,16 @@ import utility.console.Console;
 import java.time.LocalDateTime;
 
 public class Info extends Command {
-    private final Console console;
     private final CollectionManager collectionManager;
 
-    public Info(Console console, CollectionManager collectionManager) {
+    public Info(Console ignoredConsole, CollectionManager collectionManager) {
         super("info", "вывести информацию о коллекции");
-        this.console = console;
         this.collectionManager = collectionManager;
     }
 
     /**
      * Выполняет команду
+     *
      * @return Успешность выполнения команды.
      */
     @Override
@@ -38,11 +37,12 @@ public class Info extends Command {
     }
 
     private ExecutionResponse buildResponse(String lastInitTimeString, String lastSaveTimeString) {
-        var s="Сведения о коллекции:\n";
-        s+=" Тип: " + collectionManager.getCollection().getClass()+"\n";
-        s+=" Количество элементов: " + collectionManager.getCollection().size()+"\n";
-        s+=" Дата последнего сохранения: " + lastSaveTimeString+"\n";
-        s+=" Дата последней инициализации: " + lastInitTimeString;
+        var s = "Сведения о коллекции:\n";
+        s += " Тип: " + collectionManager.getCollection().getClass() + "\n";
+        s += " Количество элементов: " + collectionManager.getCollection().size() + "\n";
+        s += " Дата последнего сохранения: " + lastSaveTimeString + "\n";
+        s += " Дата последней инициализации: " + lastInitTimeString;
+
         return new ExecutionResponse(s);
     }
 }

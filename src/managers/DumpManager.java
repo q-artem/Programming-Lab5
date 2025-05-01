@@ -117,17 +117,17 @@ public class DumpManager {
                     String nameCar = carElement.elementText("name");
                     Car car = new Car.Builder().name(nameCar).build();
 
-                    HumanBeing human = new HumanBeing.Builder(id, creationDate)
-                            .name(name)
-                            .coordinates(coordinates)
-                            .realHero(realHero)
-                            .hasToothpick(hasToothpick)
-                            .impactSpeed(impactSpeed)
-                            .soundtrackName(soundtrackName)
-                            .minutesOfWaiting(minutesOfWaiting)
-                            .weaponType(weaponType)
-                            .car(car)
-                            .build();
+                    HumanBeing human = new HumanBeing.Builder(id, creationDate) {{
+                        name(name);
+                        coordinates(coordinates);
+                        realHero(realHero);
+                        hasToothpick(hasToothpick);
+                        impactSpeed(impactSpeed);
+                        soundtrackName(soundtrackName);
+                        minutesOfWaiting(minutesOfWaiting);
+                        weaponType(weaponType);
+                        car(car);
+                    }}.build();
 
                     collection.put(id, human);
                 } catch (Exception e) {

@@ -50,6 +50,7 @@ public class ReplaceIfGreater extends Command {
 
     /**
      * Сравнивает два объекта HumanBeing по ImpactSpeed, MinutesOfWaiting и Name.
+     *
      * @return true если newHuman больше oldHuman, false если меньше или если равны
      */
     private boolean compareHumanBeings(HumanBeing newHuman, HumanBeing oldHuman) {

@@ -37,7 +37,6 @@ public class Add extends Command {
                 return new ExecutionResponse("HumanBeing успешно добавлен!");
             }
             return new ExecutionResponse("HumanBeing уже содержится в коллекции (пересечение по id)!");
-
         }
         return new ExecutionResponse(false, "Поля HumanBeing не валидны! HumanBeing не создан!");
     }

@@ -7,11 +7,9 @@ public class CoordinatesCreator {
     public static Coordinates createCoordinates(Console console) {
         Coordinates.Builder builder = new Coordinates.Builder();
         console.println("Инициализировано создание координат (coordinates). Координаты обязательны");
-
         builder.x(askX(console));
         builder.y(askY(console));
         return builder.build();
-
     }
 
     private static long askX(Console console) {

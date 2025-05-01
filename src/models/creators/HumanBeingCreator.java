@@ -1,6 +1,5 @@
 package models.creators;
 
-import commands.Insert;
 import models.HumanBeing;
 import models.WeaponType;
 import utility.console.Console;
@@ -66,7 +65,7 @@ public class HumanBeingCreator {
         return hasToothpick;
     }
 
-    private static float askImpactSpeed(Console console){
+    private static float askImpactSpeed(Console console) {
         Float impactSpeed = null;
         while (!HumanBeing.validateImpactSpeed(impactSpeed)) {
             impactSpeed = console.getUserValueFloat("Введите скорость удара (impactSpeed). Пример ввода: 3.14. Не может быть пустым");
