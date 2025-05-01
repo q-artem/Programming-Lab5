@@ -4,6 +4,8 @@ import commands.utils.Command;
 import managers.CollectionManager;
 import models.HumanBeing;
 import models.WeaponType;
+import utility.Describable;
+import utility.Executable;
 import utility.ExecutionResponse;
 import utility.console.Console;
 
@@ -14,13 +16,11 @@ import java.util.List;
 /**
  * Команда 'print_field_descending_weapon_type'. Вывести значения поля weaponType всех элементов в порядке убывания.
  */
-public class PrintFieldDescendingWeaponType extends Command {
-    private final Console console;
+public class PrintFieldDescendingWeaponType extends Command implements Executable, Describable {
     private final CollectionManager collectionManager;
 
-    public PrintFieldDescendingWeaponType(Console console, CollectionManager collectionManager) {
+    public PrintFieldDescendingWeaponType(Console ignoredConsole, CollectionManager collectionManager) {
         super("print_field_descending_weapon_type", "вывести значения поля weaponType всех элементов в порядке убывания");
-        this.console = console;
         this.collectionManager = collectionManager;
     }
 

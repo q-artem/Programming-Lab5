@@ -4,13 +4,15 @@ import commands.utils.Command;
 import managers.CollectionManager;
 import models.HumanBeing;
 import models.creators.HumanBeingCreator;
+import utility.Describable;
+import utility.Executable;
 import utility.ExecutionResponse;
 import utility.console.Console;
 
 /**
  * Команда 'add'. Добавляет новый элемент в коллекцию.
  */
-public class Add extends Command {
+public class Add extends Command implements Executable, Describable {
     private final Console console;
     private final CollectionManager collectionManager;
 

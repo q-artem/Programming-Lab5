@@ -4,13 +4,15 @@ import commands.utils.Command;
 import managers.CollectionManager;
 import models.HumanBeing;
 import models.creators.HumanBeingCreator;
+import utility.Describable;
+import utility.Executable;
 import utility.ExecutionResponse;
 import utility.console.Console;
 
 /**
  * Команда 'replace_if_greater'. Заменяет элемент по ключу, если новое значение больше старого.
  */
-public class ReplaceIfGreater extends Command {
+public class ReplaceIfGreater extends Command implements Executable, Describable {
     private final Console console;
     private final CollectionManager collectionManager;
 

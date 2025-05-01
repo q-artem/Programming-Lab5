@@ -1,13 +1,15 @@
 package commands;
 
 import commands.utils.Command;
+import utility.Describable;
+import utility.Executable;
 import utility.ExecutionResponse;
 import utility.console.Console;
 
 /**
  * Команда 'execute_script'. Выполнить скрипт из файла.
  */
-public class ExecuteScript extends Command {
+public class ExecuteScript extends Command implements Executable, Describable {
 
     public ExecuteScript(Console ignoredConsole) {
         super("execute_script <file_name>", "выполнить скрипт из указанного файла");

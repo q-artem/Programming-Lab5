@@ -2,13 +2,15 @@ package commands;
 
 import commands.utils.Command;
 import managers.CollectionManager;
+import utility.Describable;
+import utility.Executable;
 import utility.ExecutionResponse;
 import utility.console.Console;
 
 /**
  * Команда 'clear'. Очищает коллекцию.
  */
-public class Clear extends Command {
+public class Clear extends Command implements Executable, Describable {
     private final CollectionManager collectionManager;
 
     public Clear(Console ignoredConsole, CollectionManager collectionManager) {

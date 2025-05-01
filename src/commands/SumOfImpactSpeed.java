@@ -3,19 +3,19 @@ package commands;
 import commands.utils.Command;
 import managers.CollectionManager;
 import models.HumanBeing;
+import utility.Describable;
+import utility.Executable;
 import utility.ExecutionResponse;
 import utility.console.Console;
 
 /**
  * Команда 'sum_of_impact_speed'. Выводит сумму значений поля impactSpeed для всех элементов коллекции.
  */
-public class SumOfImpactSpeed extends Command {
-    private final Console console;
+public class SumOfImpactSpeed extends Command implements Executable, Describable {
     private final CollectionManager collectionManager;
 
-    public SumOfImpactSpeed(Console console, CollectionManager collectionManager) {
+    public SumOfImpactSpeed(Console ignoredConsole, CollectionManager collectionManager) {
         super("sum_of_impact_speed", "вывести сумму значений поля impactSpeed для всех элементов коллекции");
-        this.console = console;
         this.collectionManager = collectionManager;
     }
 

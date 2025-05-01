@@ -3,13 +3,15 @@ package commands;
 import commands.utils.Command;
 import managers.CollectionManager;
 import models.HumanBeing;
+import utility.Describable;
+import utility.Executable;
 import utility.ExecutionResponse;
 import utility.console.Console;
 
 /**
  * Команда 'remove_lower'. Удаляет из коллекции все элементы, меньшие, чем заданный по id элемент.
  */
-public class RemoveLower extends Command {
+public class RemoveLower extends Command implements Executable, Describable {
     private final CollectionManager collectionManager;
 
     public RemoveLower(Console ignoredConsole, CollectionManager collectionManager) {

@@ -2,12 +2,14 @@ package commands;
 
 import commands.utils.Command;
 import managers.CollectionManager;
+import utility.Describable;
+import utility.Executable;
 import utility.ExecutionResponse;
 import utility.console.Console;
 
 import java.time.LocalDateTime;
 
-public class Info extends Command {
+public class Info extends Command implements Executable, Describable {
     private final CollectionManager collectionManager;
 
     public Info(Console ignoredConsole, CollectionManager collectionManager) {

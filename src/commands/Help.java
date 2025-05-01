@@ -2,12 +2,14 @@ package commands;
 
 import commands.utils.Command;
 import managers.CommandManager;
+import utility.Describable;
+import utility.Executable;
 import utility.ExecutionResponse;
 import utility.console.Console;
 
 import java.util.stream.Collectors;
 
-public class Help extends Command {
+public class Help extends Command implements Executable, Describable {
     private final CommandManager commandManager;
 
     public Help(Console ignoredConsole, CommandManager commandManager) {

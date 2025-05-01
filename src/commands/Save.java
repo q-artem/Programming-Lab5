@@ -2,13 +2,15 @@ package commands;
 
 import commands.utils.Command;
 import managers.CollectionManager;
+import utility.Describable;
+import utility.Executable;
 import utility.ExecutionResponse;
 import utility.console.Console;
 
 /**
  * Команда 'save'. Сохраняет коллекцию в файл.
  */
-public class Save extends Command {
+public class Save extends Command implements Executable, Describable {
     private final CollectionManager collectionManager;
 
     public Save(Console ignoredConsole, CollectionManager collectionManager) {

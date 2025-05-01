@@ -4,21 +4,19 @@ import commands.utils.Command;
 import managers.CollectionManager;
 import models.Car;
 import models.HumanBeing;
+import utility.Describable;
+import utility.Executable;
 import utility.ExecutionResponse;
 import utility.console.Console;
-
-import java.util.stream.Collectors;
 
 /**
  * Команда 'filter_less_than_car car'. Вывести элементы, значение поля car которых меньше заданного.
  */
-public class FilterLessThanCar extends Command {
-    private final Console console;
+public class FilterLessThanCar extends Command implements Executable, Describable {
     private final CollectionManager collectionManager;
 
-    public FilterLessThanCar(Console console, CollectionManager collectionManager) {
+    public FilterLessThanCar(Console ignoredConsole, CollectionManager collectionManager) {
         super("filter_less_than_car <car>", "вывести элементы, значение поля car которых меньше заданного");
-        this.console = console;
         this.collectionManager = collectionManager;
     }
 

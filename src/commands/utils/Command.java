@@ -1,9 +1,6 @@
 package commands.utils;
 
-import utility.Describable;
-import utility.Executable;
-
-public abstract class Command implements Describable, Executable {
+public abstract class Command {
     private final String name;
     private final String description;
 
