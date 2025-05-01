@@ -9,19 +9,29 @@ import utility.console.Console;
 
 /**
  * Команда 'save'. Сохраняет коллекцию в файл.
+ * Реализует интерфейсы {@link Executable} и {@link Describable}.
  */
 public class Save extends Command implements Executable, Describable {
     private final CollectionManager collectionManager;
 
+    /**
+     * Конструктор команды 'save'.
+     *
+     * @param ignoredConsole    консоль (не используется в этой команде)
+     * @param collectionManager менеджер коллекции для сохранения
+     */
     public Save(Console ignoredConsole, CollectionManager collectionManager) {
         super("save", "сохранить коллекцию в файл");
         this.collectionManager = collectionManager;
     }
 
     /**
-     * Выполняет команду
+     * Выполняет команду сохранения коллекции в файл.
+     * Проверяет количество аргументов, вызывает метод сохранения коллекции и обрабатывает возможные ошибки.
      *
-     * @return Успешность выполнения команды.
+     * @param arguments аргументы команды (не должны содержать значений)
+     * @return результат выполнения команды ({@link ExecutionResponse}):
+     * успешное сохранение или сообщение об ошибке
      */
     @Override
     public ExecutionResponse apply(String[] arguments) {

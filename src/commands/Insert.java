@@ -10,18 +10,33 @@ import utility.ExecutionResponse;
 import utility.console.Console;
 
 /**
- * Команда 'insert'. Вставить новый элемент в коллекцию по указанному ключу.
+ * Команда 'insert'. Добавляет новый элемент в коллекцию по указанному ключу.
+ * Реализует интерфейсы {@link Executable} и {@link Describable}.
  */
 public class Insert extends Command implements Executable, Describable {
     private final Console console;
     private final CollectionManager collectionManager;
 
+    /**
+     * Конструктор команды 'insert'.
+     *
+     * @param console           консоль для взаимодействия с пользователем
+     * @param collectionManager менеджер коллекции для вставки элемента
+     */
     public Insert(Console console, CollectionManager collectionManager) {
         super("insert <key> {element}", "Добавить в коллекцию новый элемент с заданным ключом");
         this.console = console;
         this.collectionManager = collectionManager;
     }
 
+    /**
+     * Выполняет команду вставки нового элемента по заданному ключу.
+     * Проверяет корректность ключа, отсутствие дубликата и валидность нового элемента.
+     *
+     * @param arguments аргументы команды, где arguments[1] — ключ для вставки
+     * @return результат выполнения команды ({@link ExecutionResponse}):
+     * успешное добавление, сообщение о дубликате или ошибке формата/валидации
+     */
     @Override
     public ExecutionResponse apply(String[] arguments) {
         if (arguments.length < 2) {

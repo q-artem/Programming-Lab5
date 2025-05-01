@@ -12,19 +12,43 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+/**
+ * Класс-обёртка для запуска приложения и обработки пользовательских команд.
+ * Позволяет работать в интерактивном режиме, выполнять скрипты, контролировать рекурсию и историю команд.
+ */
 public class Runner {
+    /**
+     * Консоль для взаимодействия с пользователем.
+     */
     private final Console console;
+    /**
+     * Менеджер команд приложения.
+     */
     private final CommandManager commandManager;
+    /**
+     * Стек выполняемых скриптов для контроля рекурсии.
+     */
     private final List<String> scriptStack = new ArrayList<>();
+    /**
+     * Максимальная глубина рекурсии (по умолчанию -1, не ограничено).
+     */
     private int lengthRecursion = -1;
 
+    /**
+     * Конструктор Runner.
+     *
+     * @param console        консоль для взаимодействия с пользователем
+     * @param commandManager менеджер команд
+     */
     public Runner(Console console, CommandManager commandManager) {
         this.console = console;
         this.commandManager = commandManager;
     }
 
     /**
-     * Интерактивный режим
+     * Запускает приложение в интерактивном режиме (работа с пользователем через консоль).
+     * Ожидает ввод команд, выполняет их и выводит результат.
+     * Обрабатывает ошибки ввода и завершения программы.
      */
     public void interactiveMode() {
         try {
@@ -50,10 +74,12 @@ public class Runner {
     }
 
     /**
-     * Проверяет рекурсивность выполнения скриптов.
+     * Проверяет рекурсивность выполнения скриптов и ограничивает глубину рекурсии.
+     * При необходимости запрашивает у пользователя максимальную глубину рекурсии.
      *
-     * @param argument Название запускаемого скрипта
-     * @return можно ли выполнять скрипт.
+     * @param argument      имя запускаемого скрипта
+     * @param scriptScanner сканер для чтения скрипта
+     * @return true, если выполнение скрипта разрешено, иначе false
      */
     private boolean checkRecursion(String argument, Scanner scriptScanner) {
         var recStart = -1;
@@ -82,12 +108,12 @@ public class Runner {
         return true;
     }
 
-
     /**
-     * Режим для запуска скрипта.
+     * Запускает выполнение команд из скрипта.
+     * Контролирует рекурсию, собирает вывод выполнения и возвращает результат.
      *
-     * @param argument Аргумент скрипта
-     * @return Код завершения.
+     * @param argument имя файла скрипта
+     * @return результат выполнения скрипта
      */
     private ExecutionResponse scriptMode(String argument) {
         String[] userCommand;
@@ -141,10 +167,11 @@ public class Runner {
     }
 
     /**
-     * Launchs the command.
+     * Выполняет команду по её названию и аргументам.
+     * Обрабатывает специальные случаи (execute_script), возвращает результат выполнения.
      *
-     * @param userCommand Команда для запуска
-     * @return Код завершения.
+     * @param userCommand массив с названием команды и аргументами
+     * @return результат выполнения команды
      */
     private ExecutionResponse launchCommand(String[] userCommand) {
         if (userCommand[0].isEmpty()) return new ExecutionResponse("");

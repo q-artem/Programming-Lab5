@@ -18,19 +18,31 @@ import org.dom4j.Element;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.XMLWriter;
 
+/**
+ * Класс-менеджер для чтения и записи коллекции {@link HumanBeing} в XML-файл.
+ * Позволяет сериализовать коллекцию в XML и десериализовать её обратно, используя Dom4j.
+ */
 public class DumpManager {
     private final String fileName;
     private final Console console;
 
+    /**
+     * Конструктор менеджера дампа.
+     *
+     * @param fileName имя файла для сохранения и загрузки коллекции
+     * @param console  консоль для вывода сообщений об ошибках и информации
+     */
     public DumpManager(String fileName, Console console) {
         this.fileName = fileName;
         this.console = console;
     }
 
     /**
-     * Записывает коллекцию в XML файл
+     * Записывает коллекцию {@link HumanBeing} в XML-файл.
+     * Формирует XML-документ, сериализует все элементы коллекции и сохраняет в файл.
+     * В случае ошибки выводит сообщение в консоль.
      *
-     * @param collection TreeMap для сохранения
+     * @param collection коллекция для сохранения
      */
     public void writeCollection(TreeMap<Integer, HumanBeing> collection) {
         try {
@@ -72,9 +84,11 @@ public class DumpManager {
     }
 
     /**
-     * Читает коллекцию из XML файла
+     * Загружает коллекцию {@link HumanBeing} из XML-файла.
+     * Очищает переданную коллекцию, парсит XML и добавляет элементы в коллекцию.
+     * В случае ошибок парсинга или чтения файла выводит сообщения в консоль.
      *
-     * @param collection TreeMap для сохранения
+     * @param collection коллекция для загрузки данных
      */
     public void readCollection(TreeMap<Integer, HumanBeing> collection) {
         collection.clear();
@@ -117,17 +131,16 @@ public class DumpManager {
                     String nameCar = carElement.elementText("name");
                     Car car = new Car.Builder().name(nameCar).build();
 
-                    HumanBeing human = new HumanBeing.Builder(id, creationDate) {{
-                        name(name);
-                        coordinates(coordinates);
-                        realHero(realHero);
-                        hasToothpick(hasToothpick);
-                        impactSpeed(impactSpeed);
-                        soundtrackName(soundtrackName);
-                        minutesOfWaiting(minutesOfWaiting);
-                        weaponType(weaponType);
-                        car(car);
-                    }}.build();
+                    HumanBeing human = new HumanBeing.Builder(id, creationDate).name(name)
+                            .coordinates(coordinates)
+                            .realHero(realHero)
+                            .hasToothpick(hasToothpick)
+                            .impactSpeed(impactSpeed)
+                            .soundtrackName(soundtrackName)
+                            .minutesOfWaiting(minutesOfWaiting)
+                            .weaponType(weaponType)
+                            .car(car)
+                            .build();
 
                     collection.put(id, human);
                 } catch (Exception e) {

@@ -9,16 +9,31 @@ import utility.ExecutionResponse;
 import utility.console.Console;
 
 /**
- * Команда 'remove_greater'. Удаляет из коллекции все элементы, превышающие заданный.
+ * Команда 'remove_greater'. Удаляет из коллекции все элементы, превышающие заданный по id элемент.
+ * Реализует интерфейсы {@link Executable} и {@link Describable}.
  */
 public class RemoveGreater extends Command implements Executable, Describable {
     private final CollectionManager collectionManager;
 
+    /**
+     * Конструктор команды 'remove_greater'.
+     *
+     * @param ignoredConsole    консоль (не используется в этой команде)
+     * @param collectionManager менеджер коллекции для удаления элементов
+     */
     public RemoveGreater(Console ignoredConsole, CollectionManager collectionManager) {
         super("remove_greater <key>", "удалить из коллекции все элементы, превышающие заданный по id элемент");
         this.collectionManager = collectionManager;
     }
 
+    /**
+     * Выполняет команду удаления всех элементов, превышающих заданный по id элемент.
+     * Проверяет корректность ключа, наличие элемента для сравнения и удаляет все элементы, большие заданного.
+     *
+     * @param arguments аргументы команды, где arguments[1] — ключ для сравнения
+     * @return результат выполнения команды ({@link ExecutionResponse}):
+     * количество удалённых элементов или сообщение об ошибке
+     */
     @Override
     public ExecutionResponse apply(String[] arguments) {
         if (arguments.length < 2) {

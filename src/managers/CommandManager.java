@@ -4,8 +4,18 @@ import commands.utils.Command;
 
 import java.util.*;
 
+/**
+ * Класс-менеджер для управления командами приложения и историей их выполнения.
+ * Позволяет регистрировать команды, получать их список и историю, а также добавлять команды в историю.
+ */
 public class CommandManager {
+    /**
+     * Словарь зарегистрированных команд (имя команды — объект команды).
+     */
     private final Map<String, Command> commands = new HashMap<>();
+    /**
+     * История выполненных команд (список имён команд).
+     */
     private final List<String> commandHistory = new ArrayList<>();
 
     /**
@@ -19,6 +29,8 @@ public class CommandManager {
     }
 
     /**
+     * Возвращает словарь зарегистрированных команд.
+     *
      * @return Словарь команд.
      */
     public Map<String, Command> getCommands() {
@@ -26,6 +38,8 @@ public class CommandManager {
     }
 
     /**
+     * Возвращает историю выполненных команд.
+     *
      * @return История команд.
      */
     public List<String> getCommandHistory() {
@@ -33,9 +47,9 @@ public class CommandManager {
     }
 
     /**
-     * Добавляет команду в историю.
+     * Добавляет команду в историю выполнения.
      *
-     * @param command Команда.
+     * @param command Имя выполненной команды.
      */
     public void addToHistory(String command) {
         commandHistory.add(command);

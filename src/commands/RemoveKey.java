@@ -8,16 +8,31 @@ import utility.ExecutionResponse;
 import utility.console.Console;
 
 /**
- * Команда 'remove'. Удалить элемент из коллекции по указанному ключу.
+ * Команда 'remove'. Удаляет элемент из коллекции по указанному ключу.
+ * Реализует интерфейсы {@link Executable} и {@link Describable}.
  */
 public class RemoveKey extends Command implements Executable, Describable {
     private final CollectionManager collectionManager;
 
+    /**
+     * Конструктор команды 'remove'.
+     *
+     * @param ignoredConsole    консоль (не используется в этой команде)
+     * @param collectionManager менеджер коллекции для удаления элемента
+     */
     public RemoveKey(Console ignoredConsole, CollectionManager collectionManager) {
         super("remove_key <key>", "Удалить из коллекции элемент с заданным ключом");
         this.collectionManager = collectionManager;
     }
 
+    /**
+     * Выполняет команду удаления элемента по заданному ключу.
+     * Проверяет корректность ключа, наличие элемента и удаляет его из коллекции.
+     *
+     * @param arguments аргументы команды, где arguments[1] — ключ для удаления
+     * @return результат выполнения команды ({@link ExecutionResponse}):
+     * успешное удаление, сообщение об ошибке или некорректном ключе
+     */
     @Override
     public ExecutionResponse apply(String[] arguments) {
         if (arguments.length < 2) {

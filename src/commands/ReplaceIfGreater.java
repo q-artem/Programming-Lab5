@@ -11,17 +11,33 @@ import utility.console.Console;
 
 /**
  * Команда 'replace_if_greater'. Заменяет элемент по ключу, если новое значение больше старого.
+ * Реализует интерфейсы {@link Executable} и {@link Describable}.
  */
 public class ReplaceIfGreater extends Command implements Executable, Describable {
     private final Console console;
     private final CollectionManager collectionManager;
 
+    /**
+     * Конструктор команды 'replace_if_greater'.
+     *
+     * @param console           консоль для взаимодействия с пользователем
+     * @param collectionManager менеджер коллекции для замены элементов
+     */
     public ReplaceIfGreater(Console console, CollectionManager collectionManager) {
         super("replace_if_greater <key> {element}", "заменить значение по ключу, если новое значение больше старого");
         this.console = console;
         this.collectionManager = collectionManager;
     }
 
+    /**
+     * Выполняет команду замены элемента по ключу, если новое значение больше старого.
+     * Проверяет корректность ключа, наличие элемента, создаёт новый элемент и сравнивает его со старым.
+     * Замена производится только если новое значение больше старого по заданным критериям.
+     *
+     * @param arguments аргументы команды, где arguments[1] — ключ для замены
+     * @return результат выполнения команды ({@link ExecutionResponse}):
+     * успешная замена, сообщение об ошибке или некорректных данных
+     */
     @Override
     public ExecutionResponse apply(String[] arguments) {
         if (arguments.length < 2) {
@@ -54,7 +70,10 @@ public class ReplaceIfGreater extends Command implements Executable, Describable
 
     /**
      * Сравнивает два объекта HumanBeing по ImpactSpeed, MinutesOfWaiting и Name.
+     * Сначала сравнивает ImpactSpeed, затем MinutesOfWaiting, затем Name.
      *
+     * @param newHuman новый объект HumanBeing
+     * @param oldHuman старый объект HumanBeing
      * @return true если newHuman больше oldHuman, false если меньше или если равны
      */
     private boolean compareHumanBeings(HumanBeing newHuman, HumanBeing oldHuman) {

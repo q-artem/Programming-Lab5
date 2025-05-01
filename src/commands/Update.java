@@ -11,17 +11,32 @@ import utility.console.Console;
 
 /**
  * Команда 'update'. Обновляет значение элемента коллекции, id которого равен заданному.
+ * Реализует интерфейсы {@link Executable} и {@link Describable}.
  */
 public class Update extends Command implements Executable, Describable {
     private final Console console;
     private final CollectionManager collectionManager;
 
+    /**
+     * Конструктор команды 'update'.
+     *
+     * @param console           консоль для взаимодействия с пользователем
+     * @param collectionManager менеджер коллекции для обновления элементов
+     */
     public Update(Console console, CollectionManager collectionManager) {
         super("update <key> {element}", "Обновить значение элемента коллекции, id которого равен заданному");
         this.console = console;
         this.collectionManager = collectionManager;
     }
 
+    /**
+     * Выполняет команду обновления значения элемента коллекции по заданному ключу.
+     * Проверяет корректность ключа, наличие элемента, создаёт новый объект и обновляет его в коллекции.
+     *
+     * @param arguments аргументы команды, где arguments[1] — ключ для обновления
+     * @return результат выполнения команды ({@link ExecutionResponse}):
+     * успешное обновление, сообщение об ошибке или некорректных данных
+     */
     @Override
     public ExecutionResponse apply(String[] arguments) {
         if (arguments.length < 2) {

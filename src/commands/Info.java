@@ -9,18 +9,31 @@ import utility.console.Console;
 
 import java.time.LocalDateTime;
 
+/**
+ * Команда 'info'. Выводит информацию о коллекции: тип, количество элементов, дата последней инициализации и сохранения.
+ * Реализует интерфейсы {@link Executable} и {@link Describable}.
+ */
 public class Info extends Command implements Executable, Describable {
     private final CollectionManager collectionManager;
 
+    /**
+     * Конструктор команды 'info'.
+     *
+     * @param ignoredConsole    консоль (не используется в этой команде)
+     * @param collectionManager менеджер коллекции для получения информации
+     */
     public Info(Console ignoredConsole, CollectionManager collectionManager) {
         super("info", "вывести информацию о коллекции");
         this.collectionManager = collectionManager;
     }
 
     /**
-     * Выполняет команду
+     * Выполняет команду вывода информации о коллекции.
+     * Формирует сведения о типе коллекции, количестве элементов,
+     * дате последней инициализации и сохранения.
      *
-     * @return Успешность выполнения команды.
+     * @param arguments аргументы команды (не должны содержать значений)
+     * @return результат выполнения команды ({@link ExecutionResponse}) со сведениями о коллекции
      */
     @Override
     public ExecutionResponse apply(String[] arguments) {
@@ -38,6 +51,13 @@ public class Info extends Command implements Executable, Describable {
         return buildResponse(lastInitTimeString, lastSaveTimeString);
     }
 
+    /**
+     * Формирует строку с информацией о коллекции для вывода пользователю.
+     *
+     * @param lastInitTimeString строка с датой последней инициализации
+     * @param lastSaveTimeString строка с датой последнего сохранения
+     * @return объект {@link ExecutionResponse} с информацией о коллекции
+     */
     private ExecutionResponse buildResponse(String lastInitTimeString, String lastSaveTimeString) {
         var s = "Сведения о коллекции:\n";
         s += " Тип: " + collectionManager.getCollection().getClass() + "\n";

@@ -6,16 +6,27 @@ import utility.Executable;
 import utility.ExecutionResponse;
 import utility.console.Console;
 
+/**
+ * Команда 'exit'. Завершает выполнение программы без сохранения данных.
+ * Реализует интерфейсы {@link Executable} и {@link Describable}.
+ */
 public class Exit extends Command implements Executable, Describable {
 
+    /**
+     * Конструктор команды 'exit'.
+     *
+     * @param ignoredConsole консоль (не используется в этой команде)
+     */
     public Exit(Console ignoredConsole) {
         super("exit", "завершить программу (без сохранения в файл)");
     }
 
     /**
-     * Выполняет команду
+     * Выполняет команду завершения программы.
+     * Проверяет отсутствие лишних аргументов и возвращает специальный ответ для завершения.
      *
-     * @return Успешность выполнения команды.
+     * @param arguments аргументы команды (не должны содержать значений)
+     * @return результат выполнения команды ({@link ExecutionResponse})
      */
     @Override
     public ExecutionResponse apply(String[] arguments) {

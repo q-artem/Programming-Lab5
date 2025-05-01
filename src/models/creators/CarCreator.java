@@ -3,7 +3,18 @@ package models.creators;
 import models.Car;
 import utility.console.Console;
 
+/**
+ * Класс-утилита для создания объектов {@link Car} с помощью пользовательского ввода.
+ * Использует консоль для пошагового ввода и валидации полей машины.
+ */
 public class CarCreator {
+    /**
+     * Запускает процесс создания объекта {@link Car} с помощью консоли.
+     * Пользователю предлагается создать машину или отказаться. Если выбрано создание, происходит ввод и валидация названия.
+     *
+     * @param console консоль для взаимодействия с пользователем
+     * @return созданный объект Car или null, если создание отменено
+     */
     public static Car createCar(Console console) {
         Car car = null;
         Car.Builder builder = new Car.Builder();
@@ -24,6 +35,13 @@ public class CarCreator {
         return car;
     }
 
+    /**
+     * Запрашивает у пользователя название машины и валидирует его.
+     * Повторяет запрос до тех пор, пока не будет введено корректное название.
+     *
+     * @param console консоль для взаимодействия с пользователем
+     * @return корректное название машины
+     */
     private static String askName(Console console) {
         String name = null;
         while (!Car.validateName(name)) {
