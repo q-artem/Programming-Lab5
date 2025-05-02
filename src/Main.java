@@ -55,8 +55,8 @@ public class Main {
             register("filter_less_than_car", new FilterLessThanCar(console, collectionManager));
             register("print_field_descending_weapon_type", new PrintFieldDescendingWeaponType(console, collectionManager));
         }};
-        commandManager.register("show_command_history", new ShowCommandHistory(console, commandManager));
+        commandManager.register("show_command_history", new ShowCommandHistory(console, commandManager));  // additional command
 
-        new Runner(console, commandManager).interactiveMode();  // additional command
+        new Runner(console, commandManager).interactiveMode();
     }
 }
